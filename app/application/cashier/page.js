@@ -67,7 +67,7 @@ export default function Dashboard(props) {
           <Grid item xs={12} sm={12}>
             <Container maxWidth="md">
               <Stack direction={"column"} justifyContent={"center"} alignItems={"center"} >
-                <Image src={"/images/zoo-logo.png"} width={200} height={200}/>
+                <Image src={"/images/logo.jpeg"} width={200} height={200}/>
                 <Typography variant="h4" align="center">
                   Bienvenue sur eTicket Pro v1.0
                 </Typography>

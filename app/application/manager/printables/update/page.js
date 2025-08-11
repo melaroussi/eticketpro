@@ -159,7 +159,7 @@ export default function Dashboard(props) {
           setElementCY(list[0].elementCY)
           setElementDX(list[0].elementDX)
           setElementDY(list[0].elementDY)
-          alert(JSON.stringify(list))
+          //alert(JSON.stringify(list))
           setLoading(false)
         }
       })

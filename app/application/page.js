@@ -123,7 +123,7 @@ export default function Dashboard(props) {
             let user = data.result[0]
             if (user){
               /** Stroe User Infos in Session */
-              alert(JSON.stringify(user))
+              //alert(JSON.stringify(user))
               sessionStorage.setItem("user", JSON.stringify(user))
               /** Redirections */
               if (user.profile === "admin") router.replace("/application/manager")

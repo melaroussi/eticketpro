@@ -105,7 +105,7 @@ export default function Dashboard(props) {
     else{
       /** Getting Ticket ID */
       let id = searchParams.get("id")
-      alert(id)
+      //alert(id)
       const OPTIONS = {
         method: "POST", 
         mode: "cors", 

@@ -145,7 +145,7 @@ export default function Dashboard(props) {
             <Document title={"PV de Clôture Journalier"} pdfVersion="1.4"  >
               <Page size={"A5"} style={styles.page} >
                 <View style={styles.section}>
-                  <Image source={"/images/zoo-logo.png"} style={styles.logo}/>
+                  <Image source={"/images/logo.jpeg"} style={styles.logo}/>
                 </View>
                 <View style={styles.section}>
                   <Text style={styles.header}>eTicket Pro v1.0</Text>

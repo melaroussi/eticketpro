@@ -147,7 +147,7 @@ export default function Dashboard(props) {
 
   const download = function(event){
     event.preventDefault()
-    alert('download')
+    //alert('download')
   }
 
   /** Hooks */

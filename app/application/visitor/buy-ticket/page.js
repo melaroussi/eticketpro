@@ -276,7 +276,7 @@ export default function Page(props) {
       fetch(process.env.API_USER_ENDPOINT.concat("/tickets/online-sells"), OPTIONS).then(function(response){
         response.json().then(function(data){
           router.replace('/application/visitor')
-          alert(JSON.stringify(data))
+          //alert(JSON.stringify(data))
         }) 
       })
     }   

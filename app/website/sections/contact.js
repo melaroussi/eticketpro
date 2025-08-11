@@ -48,7 +48,7 @@ export default function Contact() {
   }
 
   const send = function(event){
-    alert("Send")
+    //alert("Send")
   }
 
   const reasons = [
