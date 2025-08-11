@@ -233,6 +233,7 @@ export default function Dashboard(props) {
                     <MenuItem value={"chief-cashier"}>Chef Caissier</MenuItem>
                     <MenuItem value={"shop-cashier"}>Caissier de Boutique</MenuItem>
                     <MenuItem value={"parking-cashier"}>Agent de Parking</MenuItem>
+                    <MenuItem value={"b2b"}>B2B</MenuItem>
                   </TextField>
                   <TextField value={gender} onChange={handleGender} variant='outlined' size='small' label="Genre" required InputLabelProps={{ shrink: true }} id="gender-select" select>
                     <MenuItem value={"Female"}>Female</MenuItem>
