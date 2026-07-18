@@ -107,6 +107,8 @@ export default function Dashboard(props) {
   let [selectedArticlesPage, setSelectedArticlesPage] = React.useState(0)
   /** Selected Category */
   let [category, setCategory] = React.useState()
+  /** Categories List */
+  let [categories, setCategories] = React.useState([])
   
   /** Handlers */
   const handlePageChange = function(event, page){
@@ -222,22 +224,27 @@ export default function Dashboard(props) {
 
     /** Getting Data Again */
     fetch(process.env.API_USER_ENDPOINT.concat("/articles"), OPTIONS).then(function(response){
- 
       response.json().then(function(data){
-        let list = data.result
-
-        /** Loading Data */
-        list.forEach(function(item){
-          articles.push({
-            id: item.id,
-            category: item.category,
-            label: item.label,
-            price: item.price,
-            VATRate: item.VATRate,
-            availableQuantity: item.availableQuantity,
-            description: item.description
-          })
-        })
+        let list = data.result || []
+        const mapped = list.map(item => ({
+          id: item.id,
+          category: item.category,
+          label: item.label,
+          price: item.price,
+          VATRate: item.VATRate,
+          availableQuantity: item.availableQuantity,
+          description: item.description,
+          image: item.image
+        }));
+        setArticles(mapped);
+        setFilteredarticles(mapped);
+        
+        const uniqueCats = Array.from(new Set(mapped.map(a => a.category)));
+        setCategories(uniqueCats);
+        if (uniqueCats.length > 0) {
+          setCategory(uniqueCats[0]);
+          setFilteredarticles(mapped.filter(a => a.category === uniqueCats[0]));
+        }
       })
     })
   }
@@ -273,21 +280,15 @@ export default function Dashboard(props) {
     }
   }
 
-  /** Categories */
-  const categories = [
-    "Cadre",
-    "Bracelet"
-  ]
-
   /** Filter articles by Categories */
-  const filterByCategory = function(event, category){
+  const filterByCategory = function(event, targetCategory){
     event.preventDefault()
     /** Update Category for Button Color */
-    setCategory(category)
+    setCategory(targetCategory)
     /** Filter Array */
     setFilteredarticles(    
       articles.filter(function(ticket){
-        return ticket.category === category
+        return ticket.category === targetCategory
       })
     )
     /** Page Refresh */
@@ -307,48 +308,83 @@ export default function Dashboard(props) {
   
   return (
     <>
-      {/** */}
-      <Grid container position={"fixed"} flexDirection="row" justifyContent="start" alignItems="start" sx={{ width:"100%", height:"100vh", backgroundColor: grey[50]}}>
-        { /** AppBar */}
-        <Grid item xs={12} sm={12} height={"5vh"}>
-          <NavigationSystem indicator={"articles"} element={"Espace Zoo Shop"}/>
-        </Grid>
-        { /** Category Buttons */}
-        <Grid item xs={12} sm={12} height={"40vh"}>
-          <Container maxWidth="xl">
-            <Stack direction={"column"} spacing={2}>
-              <Stack direction={"column"} spacing={0}>
-                <Typography variant="h6">
-                  Categories
-                </Typography>
-                <Typography variant="body1">
-                  Choisissez une categorie pour visualiser ces articles
-                </Typography>
+      <Grid container position={"fixed"}  flexDirection="row" justifyContent="flex-start" alignContent={"flex-start"}  alignItems="stretch" sx={{ width:"100%", height:"100vh", backgroundColor: grey[100]}}>
+      { /** AppBar */}
+      <Grid item xs={12} sm={12}>
+        <NavigationSystem indicator={"articles"} element={"Zoo Shop Boutique"}/>
+      </Grid>
+      {/** Category Buttons */}
+      <Grid item xs={12} sm={12} sx={{paddingTop: 10}} height={"50vh"} overflow={"scroll"}>
+        <Container maxWidth="xl"> 
+          <Stack direction={"column"} spacing={2} >
+            <Paper sx={{padding: 2}}>
+              <Stack direction={"column"} spacing={2}>
+                <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                  <Stack direction={"column"} spacing={0}>
+                    <Typography variant="h6">
+                      Boutique Zoo Shop
+                    </Typography>
+                    <Typography variant="body1">
+                    {
+                      onlineUser && <span>Bonjour {onlineUser.firstName} {onlineUser.lastName} (Caisse)</span>
+                    }
+                    </Typography>
+                  </Stack>
+                  <Button variant="outlined" onClick={(e) => handleLinks(e, "cashier/articles")} size="small">
+                    Consulter les Ventes Boutique
+                  </Button>
+                </Stack>
               </Stack>
-              <Stack direction={"row"} spacing={2}>
+            </Paper>
+            <Paper sx={{padding: 2}}>
+              <Stack direction={"column"} spacing={2}>
+                <Stack direction={"column"} spacing={0}>
+                  <Typography variant="h6">
+                    Sélection des Articles
+                  </Typography>
+                  <Typography variant="body1">
+                    Choisissez une catégorie pour visualiser ses articles.
+                  </Typography>
+                </Stack>
+              </Stack>
+              <Stack direction={"row"} spacing={2} sx={{ mt: 2 }}>
                 {
                   categories.map(function(item){
                     return(
-                      <Button key={item} onClick={(e)=>filterByCategory(e, item)} variant={"contained"} color={item === category ? "primary" : "inherit"} fullWidth>
+                      <Button key={item} onClick={(e)=>filterByCategory(e, item)} variant={"contained"} color={item === category ? "primary" : "inherit"} sx={{ borderRadius: 2, textTransform: 'none' }}>
                         { item }
                       </Button>
                     )
                   })
                 }
               </Stack>
-              <Stack direction={"row"} spacing={2} overflow={true}>
+              <Stack direction={"row"} spacing={2} overflow={"auto"} sx={{ mt: 3, pb: 1 }}>
                 {
                   filteredarticles && filteredarticles.map(function(item){
                     return(
-                      <Card key={item.id} sx={{ width: 300 }}>
-                        <CardHeader avatar={<Avatar variant="rounded" sx={{backgroundColor: green[500]}}>{ item.id }</Avatar>} title={item.label} subheader={<Typography variant="button">{item.price} {"DH"}</Typography>}/>
-                        <CardContent>
-                          <Typography variant="body2" color="text.primary">
+                      <Card key={item.id} sx={{ width: 280, minWidth: 280, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 3, boxShadow: '0 4px 12px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0' }}>
+                        {item.image && (
+                          <CardMedia
+                            component="img"
+                            height="140"
+                            image={item.image}
+                            alt={item.label}
+                            sx={{ objectFit: 'contain', p: 1, bgcolor: '#f8fafc' }}
+                          />
+                        )}
+                        <CardHeader 
+                          avatar={<Avatar variant="rounded" sx={{backgroundColor: green[500]}}>{ item.id }</Avatar>} 
+                          title={item.label} 
+                          subheader={<Typography variant="button" sx={{ fontWeight: 700, color: 'primary.main' }}>{item.price} {"DH"}</Typography>}
+                          sx={{ pb: 1 }}
+                        />
+                        <CardContent sx={{ pt: 0, pb: 1 }}>
+                          <Typography variant="body2" color="text.secondary">
                             { item.availableQuantity === 0 ? "Rupture en Stock" : item.availableQuantity + " en stock"} 
                           </Typography>
                         </CardContent>
-                        <CardActions disableSpacing disableGutters>
-                          <Button onClick={(e)=>addToCart(e, item)} disabled={isDisabled(item)} variant={"contained"} color={"inherit"} fullWidth>
+                        <CardActions disableSpacing>
+                          <Button onClick={(e)=>addToCart(e, item)} disabled={isDisabled(item)} variant={"contained"} color={"primary"} fullWidth sx={{ borderRadius: 2, textTransform: 'none', fontWeight: 600 }}>
                             Ajouter
                           </Button>
                         </CardActions>
@@ -357,12 +393,13 @@ export default function Dashboard(props) {
                   })
                 }
               </Stack>
-            </Stack>
-          </Container>
-        </Grid>
+            </Paper>
+          </Stack>
+        </Container>
+      </Grid>
 
-        { /** Filtered articles Table */}
-        <Grid item xs={12} sm={12} height={"30vh"}>
+      { /** Filtered articles Table */}
+      <Grid item xs={12} sm={12} height={"30vh"}>
           <Container maxWidth="xl">
             <Typography variant="h6">
               Panier

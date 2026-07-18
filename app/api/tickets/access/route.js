@@ -13,12 +13,10 @@ export async function GET(request) {
       query: 'SELECT access.id as "id", readers.label as "reader", readers.ip as "ip", zones.label AS "zone", access.authorised FROM access INNER JOIN readers ON access.readerId=readers.id INNER JOIN zones ON readers.zoneId = zones.id WHERE ticketId=? ORDER BY zone',
       values: [id],
     })
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
 
@@ -112,12 +110,10 @@ export async function POST(request) {
         })
       })
     }
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
 
@@ -132,11 +128,9 @@ export async function DELETE(request) {
       query: 'DELETE FROM tickets WHERE id=?',
       values: [id],
     })
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }

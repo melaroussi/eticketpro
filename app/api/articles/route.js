@@ -23,12 +23,10 @@ export async function GET(request) {
         values: [],
       })
     }
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
 
@@ -40,13 +38,12 @@ export async function POST(request) {
     let operation = await request.nextUrl.searchParams.get("operation")
     /** Create operation */
     if (operation === "create"){
-     
       let data = await request.json()
       console.log(data)
       /** Running SQL Query */
       result = await excuteQuery({
-        query: "INSERT INTO articles(reference, category, label, price, VATRate, warehousing, availableQuantity, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-        values: [data.reference, data.category, data.label, data.price, data.VATRate, data.warehousing, data.availableQuantity, data.description],
+        query: "INSERT INTO articles(reference, category, label, price, VATRate, warehousing, availableQuantity, description, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        values: [data.reference, data.category, data.label, data.price, data.VATRate, data.warehousing, data.availableQuantity, data.description, data.image],
       })
     }
     /** Create operation */
@@ -55,16 +52,14 @@ export async function POST(request) {
       let data = await request.json();
       /** Running SQL Query */
       result = await excuteQuery({
-        query: 'UPDATE articles SET reference=?, category=?, label=?, price=?, VATRate=?, warehousing=?, availableQuantity=?, description=? WHERE id = ?',
-        values: [data.reference, data.category, data.label, data.price, data.VATRate, data.warehousing, data.availableQuantity, data.description, id],
+        query: 'UPDATE articles SET reference=?, category=?, label=?, price=?, VATRate=?, warehousing=?, availableQuantity=?, description=?, image=? WHERE id = ?',
+        values: [data.reference, data.category, data.label, data.price, data.VATRate, data.warehousing, data.availableQuantity, data.description, data.image, id],
       })
     }
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
 
@@ -79,11 +74,9 @@ export async function DELETE(request) {
       query: 'DELETE FROM articles WHERE id=?',
       values: [id],
     })
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }

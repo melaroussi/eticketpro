@@ -199,6 +199,7 @@ export default function Page() {
             setBusinessName(item.businessName)
             setType(item.type)
           }
+          setLoading(false)
         }
       })
     })
@@ -210,7 +211,7 @@ export default function Page() {
         setDepartments(list)
       })
     })
-  }, [searchParams, loading])
+  }, [searchParams])
 
   /** Cancel button action */
   const cancel = function(event){
@@ -263,6 +264,7 @@ export default function Page() {
                     <MenuItem value={"chief-cashier"}>Chef Caissier</MenuItem>
                     <MenuItem value={"shop-cashier"}>Caissier de Boutique</MenuItem>
                     <MenuItem value={"parking-cashier"}>Agent de Parking</MenuItem>
+                    <MenuItem value={"B2B"}>B2B</MenuItem>
                     </TextField>
                     <TextField value={gender} defaultValue={gender} onChange={handleGender} variant='outlined' size='small' label="Genre" required InputLabelProps={{ shrink: true }} select>
                       <MenuItem value={"Female"}>Female</MenuItem>

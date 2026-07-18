@@ -173,7 +173,7 @@ export default function Dashboard(props) {
           ticketInfos && styles && printableModel && <PDFViewer showToolbar={true}  style={styles.viewer} >
             <Document author="eTicket Pro v1.0" creationDate={new Date()} onRender={onDocumentRenderCallback} >
               {
-                [...new Array(ticketInfos.quantity)].map(function(item, index){
+                [...new Array(ticketInfos.quantity || 1)].map(function(item, index){
                   let serial = "TK".concat(ticketInfos.ticketId).concat("V").concat(ticketInfos.id).concat("D").concat(moment(ticketInfos.datetime).format("MMYYYY"))
                   return (
                     <Page key={item} orientation={printableModel.orientation} style={styles.page}>

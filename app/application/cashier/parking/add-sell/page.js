@@ -168,8 +168,7 @@ export default function Dashboard(props) {
         quantity: 1,
         validityStartDatetime : moment().format("YYYY-MM-DD").toString(),
         validityStopDatetime : moment().format("YYYY-MM-DD").toString(),
-        allowedScanNumber: 1,
-        allowedScanNumber: parseInt(element.allowedScanNumber),
+        allowedScanNumber: parseInt(element.allowedScanNumber) || 1,
         paiementType: "ESPECE",
         onTimeDefinitionAllowedScanNumber: element.onTimeDefinitionAllowedScanNumber,
         userId: onlineUser.id
@@ -269,17 +268,15 @@ export default function Dashboard(props) {
 
     /** Getting Data Again */
     fetch(process.env.API_USER_ENDPOINT.concat("/tickets"), OPTIONS).then(function(response){
- 
       response.json().then(function(data){
-        let list = data.result
-
-        /** Loading Data */
+        let list = data.result || []
+        let parkingTickets = []
         list.forEach(function(item){
           if (item.forParking){
-            tickets.push({
+            parkingTickets.push({
               id: item.id,
               category: item.category,
-              type: item.type,
+              type: item.type || "Parking Standard",
               price: item.price,
               needReservation: item.needReservation,
               minimumOrders: item.minimumOrders,
@@ -290,6 +287,8 @@ export default function Dashboard(props) {
             })
           }
         })
+        setTickets(parkingTickets)
+        setFilteredTickets(parkingTickets)
       })
     })
   }
@@ -347,7 +346,7 @@ export default function Dashboard(props) {
     /** Filter Array */
     setFilteredTickets(    
       tickets.filter(function(ticket){
-        return ticket.category === category
+        return ticket.category && ticket.category.toLowerCase() === category.toLowerCase()
       })
     )
     /** Page Refresh */

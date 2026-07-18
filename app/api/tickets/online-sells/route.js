@@ -119,11 +119,9 @@ export async function POST(request) {
         })
       })
     })
+    return NextResponse.json({ result });
   }
   catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
-    return NextResponse.json({ result });
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }

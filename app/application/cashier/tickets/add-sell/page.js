@@ -175,8 +175,7 @@ export default function Dashboard(props) {
         quantity: 1,
         validityStartDatetime : moment().format("YYYY-MM-DD").toString(),
         validityStopDatetime : moment().format("YYYY-MM-DD").toString(),
-        allowedScanNumber: 1,
-        allowedScanNumber: parseInt(element.allowedScanNumber),
+        allowedScanNumber: parseInt(element.allowedScanNumber) || 1,
         onTimeDefinitionAllowedScanNumber: element.onTimeDefinitionAllowedScanNumber,
         paiementType: "ESPECE",
         userId: onlineUser.id,
@@ -267,8 +266,8 @@ export default function Dashboard(props) {
 
   const isAssigned = function(id){
     let assigned = false;
-    
-    quotaInfos?.forEach(function(item){
+    if (!Array.isArray(quotaInfos)) return false;
+    quotaInfos.forEach(function(item){
       if (item.ticketId === id && item.assigned === 1) assigned=true
     })
     
@@ -276,11 +275,12 @@ export default function Dashboard(props) {
   }
 
   const getQuotaInfos = function(id){
-    let results = quotaInfos?.filter(function(item){
+    if (!Array.isArray(quotaInfos)) return null;
+    let results = quotaInfos.filter(function(item){
       return (item.ticketId === id && item.assigned === 1)
     })
     
-    return results[0]
+    return results.length > 0 ? results[0] : null;
   }
 
   /** Handlers */
@@ -451,7 +451,7 @@ export default function Dashboard(props) {
                         }
                         </CardContent>
                         <CardActions disableSpacing disableGutters>
-                          <Button onClick={(e)=>addToCart(e, item)} disabled={isAlreadyAdded(item.id) || (!isAssigned(item.id)) || (ticketQuotaInfos.illimited === 0 && (ticketQuotaInfos.quota <= ticketQuotaInfos.sellsNumber))} variant={"contained"} color={"inherit"} fullWidth>
+                          <Button onClick={(e)=>addToCart(e, item)} disabled={isAlreadyAdded(item.id) || (!isAssigned(item.id)) || (ticketQuotaInfos && ticketQuotaInfos.illimited === 0 && (ticketQuotaInfos.quota <= ticketQuotaInfos.sellsNumber))} variant={"contained"} color={"inherit"} fullWidth>
                             Ajouter 
                           </Button>
                         </CardActions>

@@ -34,7 +34,7 @@ export async function GET(request) {
       let id = await request.nextUrl.searchParams.get("id");
       /** Running SQL Query */
       result = await excuteQuery({
-        query: "SELECT sells.datetime AS 'date', SUM(sells.quantity*tickets.price) AS 'turnover', SUM(sells.quantity*tickets.price)*0.2 AS 'VAT',  users.firstName, users.lastName FROM ticket_sells AS sells INNER JOIN tickets as tickets ON tickets.id = sells.ticketId INNER JOIN users ON users.id=sells.userId WHERE sells.userId = ? AND EXTRACT(YEAR FROM sells.datetime)=EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM sells.datetime)=EXTRACT(MONTH FROM NOW()) AND EXTRACT(DAY FROM sells.datetime)=EXTRACT(DAY FROM NOW())",
+        query: "SELECT MAX(sells.datetime) AS 'date', SUM(tickets.price) AS 'turnover', SUM(tickets.price)*0.2 AS 'VAT', MAX(users.firstName) AS firstName, MAX(users.lastName) AS lastName FROM ticket_sells AS sells INNER JOIN tickets as tickets ON tickets.id = sells.ticketId INNER JOIN users ON users.id=sells.userId WHERE sells.userId = ? AND DATE(sells.datetime) = DATE(NOW())",
         values: [id],
       })
     }
@@ -44,7 +44,7 @@ export async function GET(request) {
       let id = await request.nextUrl.searchParams.get("id");
       /** Running SQL Query */
       result = await excuteQuery({
-        query: "SELECT sells.datetime AS 'date', SUM(sells.quantity*tickets.price) AS 'turnover', SUM(sells.quantity*tickets.price)*0.2 AS 'VAT', sells.paiementType AS 'paiementType',  users.firstName, users.lastName FROM ticket_sells AS sells INNER JOIN tickets as tickets ON tickets.id = sells.ticketId INNER JOIN users ON users.id=sells.userId WHERE sells.userId = ? AND EXTRACT(YEAR FROM sells.datetime)=EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM sells.datetime)=EXTRACT(MONTH FROM NOW()) AND EXTRACT(DAY FROM sells.datetime)=EXTRACT(DAY FROM NOW()) GROUP BY sells.paiementType",
+        query: "SELECT MAX(sells.datetime) AS 'date', SUM(tickets.price) AS 'turnover', SUM(tickets.price)*0.2 AS 'VAT', sells.paiementType AS 'paiementType', MAX(users.firstName) AS firstName, MAX(users.lastName) AS lastName FROM ticket_sells AS sells INNER JOIN tickets as tickets ON tickets.id = sells.ticketId INNER JOIN users ON users.id=sells.userId WHERE sells.userId = ? AND DATE(sells.datetime) = DATE(NOW()) GROUP BY sells.paiementType",
         values: [id],
       })
     }
@@ -58,12 +58,10 @@ export async function GET(request) {
         values: [id],
       })
     }
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
 
@@ -103,11 +101,9 @@ export async function DELETE(request) {
       query: 'DELETE FROM daily_reports WHERE id=?',
       values: [id],
     })
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }

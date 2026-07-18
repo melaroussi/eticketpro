@@ -33,12 +33,10 @@ export async function GET(request) {
         values: [],
       })
     }
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
 
@@ -81,12 +79,10 @@ export async function POST(request) {
         values: [id],
       })
     }
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
 
@@ -101,11 +97,9 @@ export async function DELETE(request) {
       query: 'DELETE FROM printables WHERE id=?',
       values: [id],
     })
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }

@@ -13,11 +13,9 @@ export async function GET(request) {
       query:"SELECT s.id AS 'id', s.ticketId AS 'ticketId', s.zoneId AS 'zoneId', s.scanNumber AS 'scanNumber', z.label AS 'zoneLabel' FROM zone_scans s INNER JOIN zones z ON s.zoneId = z.id WHERE s.ticketId = ?",
       values: [id],
     })
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }

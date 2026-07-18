@@ -40,7 +40,7 @@ export async function GET(request) {
       if (query === "year-turnover"){
         /** Running SQL Query */
         result = await excuteQuery({
-          query: "SELECT IFNULL(SUM(ticket_sells.quantity*tickets.price), 0) AS turnover FROM tickets INNER JOIN ticket_sells ON tickets.id=ticket_sells.ticketId WHERE EXTRACT(YEAR FROM ticket_sells.datetime)=EXTRACT(YEAR FROM NOW())",
+          query: "SELECT IFNULL(SUM(tickets.price), 0) AS turnover FROM tickets INNER JOIN ticket_sells ON tickets.id=ticket_sells.ticketId WHERE EXTRACT(YEAR FROM ticket_sells.datetime)=EXTRACT(YEAR FROM NOW())",
           values: [],
         })
       }
@@ -49,7 +49,7 @@ export async function GET(request) {
       if (query === "month-turnover"){
         /** Running SQL Query */
         result = await excuteQuery({
-          query: "SELECT IFNULL(SUM(ticket_sells.quantity*tickets.price), 0) AS turnover FROM tickets INNER JOIN ticket_sells ON tickets.id=ticket_sells.ticketId WHERE EXTRACT(YEAR FROM ticket_sells.datetime)=EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM ticket_sells.datetime)=EXTRACT(MONTH FROM NOW())",
+          query: "SELECT IFNULL(SUM(tickets.price), 0) AS turnover FROM tickets INNER JOIN ticket_sells ON tickets.id=ticket_sells.ticketId WHERE EXTRACT(YEAR FROM ticket_sells.datetime)=EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM ticket_sells.datetime)=EXTRACT(MONTH FROM NOW())",
           values: [],
         })
       }
@@ -58,7 +58,7 @@ export async function GET(request) {
       if (query === "day-turnover"){
         /** Running SQL Query */
         result = await excuteQuery({
-          query: "SELECT IFNULL(SUM(ticket_sells.quantity*tickets.price), 0) AS turnover FROM tickets INNER JOIN ticket_sells ON tickets.id=ticket_sells.ticketId WHERE EXTRACT(YEAR FROM ticket_sells.datetime)=EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM ticket_sells.datetime)=EXTRACT(MONTH FROM NOW()) AND EXTRACT(DAY FROM ticket_sells.datetime)=EXTRACT(DAY FROM NOW())",
+          query: "SELECT IFNULL(SUM(tickets.price), 0) AS turnover FROM tickets INNER JOIN ticket_sells ON tickets.id=ticket_sells.ticketId WHERE EXTRACT(YEAR FROM ticket_sells.datetime)=EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM ticket_sells.datetime)=EXTRACT(MONTH FROM NOW()) AND EXTRACT(DAY FROM ticket_sells.datetime)=EXTRACT(DAY FROM NOW())",
           values: [],
         })
       }
@@ -85,7 +85,7 @@ export async function GET(request) {
       if (query === "turnover-by-type"){
         /** Running SQL Query */
         result = await excuteQuery({
-          query: "SELECT tickets.type AS type, IFNULL(SUM(ticket_sells.quantity*tickets.price), 0) AS turnover FROM tickets INNER JOIN ticket_sells ON tickets.id=ticket_sells.ticketId WHERE EXTRACT(YEAR FROM ticket_sells.datetime)=EXTRACT(YEAR FROM NOW()) GROUP BY tickets.type",
+          query: "SELECT tickets.type AS type, IFNULL(SUM(tickets.price), 0) AS turnover FROM tickets INNER JOIN ticket_sells ON tickets.id=ticket_sells.ticketId WHERE EXTRACT(YEAR FROM ticket_sells.datetime)=EXTRACT(YEAR FROM NOW()) GROUP BY tickets.type",
           values: [],
         })
       }
@@ -94,15 +94,13 @@ export async function GET(request) {
       if (query === "turnover-by-category"){
         /** Running SQL Query */
         result = await excuteQuery({
-          query: "SELECT tickets.category AS category, IFNULL(SUM(ticket_sells.quantity*tickets.price), 0) AS turnover FROM tickets INNER JOIN ticket_sells ON tickets.id=ticket_sells.ticketId WHERE EXTRACT(YEAR FROM ticket_sells.datetime)=EXTRACT(YEAR FROM NOW()) GROUP BY tickets.category",
+          query: "SELECT tickets.category AS category, IFNULL(SUM(tickets.price), 0) AS turnover FROM tickets INNER JOIN ticket_sells ON tickets.id=ticket_sells.ticketId WHERE EXTRACT(YEAR FROM ticket_sells.datetime)=EXTRACT(YEAR FROM NOW()) GROUP BY tickets.category",
           values: [],
         })
       }
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }

@@ -159,78 +159,86 @@ export default function Dashboard(props) {
     /** Getting KPIs */
     fetch(process.env.API_USER_ENDPOINT.concat("/tickets/analytics?query=year-sells"), OPTIONS).then(function(response){
       response.json().then(function(data){
-        setYearSells(data.result[0].sellsNumber)
+        setYearSells(data.result && data.result[0] ? data.result[0].sellsNumber : 0)
       })
     })
 
     /** Getting KPIs */
     fetch(process.env.API_USER_ENDPOINT.concat("/tickets/analytics?query=month-sells"), OPTIONS).then(function(response){
       response.json().then(function(data){
-        setMonthSells(data.result[0].sellsNumber)
+        setMonthSells(data.result && data.result[0] ? data.result[0].sellsNumber : 0)
       })
     })
 
     /** Getting KPIs */
     fetch(process.env.API_USER_ENDPOINT.concat("/tickets/analytics?query=day-sells"), OPTIONS).then(function(response){
       response.json().then(function(data){
-        setDaySells(data.result[0].sellsNumber)
+        setDaySells(data.result && data.result[0] ? data.result[0].sellsNumber : 0)
       })
     })
 
     /** Getting KPIs */
     fetch(process.env.API_USER_ENDPOINT.concat("/tickets/analytics?query=year-turnover"), OPTIONS).then(function(response){
       response.json().then(function(data){
-        setYearTurnover(data.result[0].turnover)
+        setYearTurnover(data.result && data.result[0] ? data.result[0].turnover : 0)
       })
     })
 
     /** Getting KPIs */
     fetch(process.env.API_USER_ENDPOINT.concat("/tickets/analytics?query=month-turnover"), OPTIONS).then(function(response){
       response.json().then(function(data){
-        setMonthTurnover(data.result[0].turnover)
+        setMonthTurnover(data.result && data.result[0] ? data.result[0].turnover : 0)
       })
     })
 
     /** Getting KPIs */
     fetch(process.env.API_USER_ENDPOINT.concat("/tickets/analytics?query=day-turnover"), OPTIONS).then(function(response){
       response.json().then(function(data){
-        setDayTurnover(data.result[0].turnover)
+        setDayTurnover(data.result && data.result[0] ? data.result[0].turnover : 0)
       })
     })
 
     /** Getting KPIs */
     fetch(process.env.API_USER_ENDPOINT.concat("/tickets/analytics?query=sells-by-type"), OPTIONS).then(function(response){
       response.json().then(function(data){
-        data.result.forEach(function(item, key){
-          sellsByType.push({id: key, value: item.sellsNumber, label: item.type })
-        })
+        if (data.result) {
+          data.result.forEach(function(item, key){
+            sellsByType.push({id: key, value: item.sellsNumber, label: item.type || "Autre" })
+          })
+        }
       })
     })
 
     /** Getting KPIs */
     fetch(process.env.API_USER_ENDPOINT.concat("/tickets/analytics?query=sells-by-category"), OPTIONS).then(function(response){
       response.json().then(function(data){
-        data.result.forEach(function(item, key){
-          sellsByCategory.push({id: key, value: item.sellsNumber, label: item.category })
-        })
+        if (data.result) {
+          data.result.forEach(function(item, key){
+            sellsByCategory.push({id: key, value: item.sellsNumber, label: item.category || "Autre" })
+          })
+        }
       })
     })
 
     /** Getting KPIs */
     fetch(process.env.API_USER_ENDPOINT.concat("/tickets/analytics?query=turnover-by-category"), OPTIONS).then(function(response){
       response.json().then(function(data){
-        data.result.forEach(function(item, key){
-          turnoverByCategory.push({id: key, value: item.turnover, label: item.category })
-        })
+        if (data.result) {
+          data.result.forEach(function(item, key){
+            turnoverByCategory.push({id: key, value: item.turnover, label: item.category || "Autre" })
+          })
+        }
       })
     })
 
     /** Getting KPIs */
     fetch(process.env.API_USER_ENDPOINT.concat("/tickets/analytics?query=turnover-by-type"), OPTIONS).then(function(response){
       response.json().then(function(data){
-        data.result.forEach(function(item, key){
-          turnoverByType.push({id: key, value: item.turnover, label: item.type })
-        })
+        if (data.result) {
+          data.result.forEach(function(item, key){
+            turnoverByType.push({id: key, value: item.turnover, label: item.type || "Autre" })
+          })
+        }
       })
     })
   }, [])

@@ -13,12 +13,10 @@ export async function GET(request) {
       query: "SELECT a.id AS 'id', u.profile AS 'profile', u.firstName AS 'firstName', u.lastName AS 'lastName', a.illimited AS 'illimited', a.quota AS 'quota', a.assigned AS 'assigned' FROM assignments a INNER JOIN users u ON a.userId = u.id WHERE ticketId = ?",
       values: [id],
     })
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
 
@@ -86,11 +84,9 @@ export async function POST(request) {
         console.log(result)
       })
     }
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }

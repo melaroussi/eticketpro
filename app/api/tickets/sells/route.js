@@ -11,23 +11,21 @@ export async function GET(request) {
     if (id){
     /** Running SQL Query */
       result = await excuteQuery({
-        query: "SELECT sells.id AS id, sells.datetime AS datetime, sells.validityStartDatetime AS validityStartDatetime, sells.validityStopDatetime AS validityStopDatetime, sells.allowedScanNumber AS allowedScanNumber, positions.positionCode AS 'positionCode', positions.price AS 'positionPrice', sells.printed AS printed, sells.canceled AS canceled, sells.userId AS userId, sells.clientId AS clientId, tickets.id AS 'ticketId', tickets.category AS category, tickets.type AS type, tickets.price AS price, tickets.needReservation AS needReservation, tickets.forParking AS forParking, tickets.forGraphicalSell AS forGraphicalSell, tickets.NFCIdentifyer AS NFCIdentifyer, users.firstName AS firstName, users.lastName AS lastName FROM ticket_sells AS sells INNER JOIN tickets as tickets ON tickets.id = sells.ticketId INNER JOIN users ON users.id = sells.userId INNER JOIN positions ON positions.id = sells.positionId  WHERE sells.id=?",
+        query: "SELECT sells.id AS id, sells.datetime AS datetime, sells.validityStartDatetime AS validityStartDatetime, sells.validityStopDatetime AS validityStopDatetime, sells.allowedScanNumber AS allowedScanNumber, positions.positionCode AS 'positionCode', positions.price AS 'positionPrice', sells.printed AS printed, sells.canceled AS canceled, sells.userId AS userId, sells.clientId AS clientId, tickets.id AS 'ticketId', tickets.category AS category, tickets.type AS type, tickets.price AS price, tickets.needReservation AS needReservation, tickets.forParking AS forParking, tickets.forGraphicalSell AS forGraphicalSell, tickets.NFCIdentifyer AS NFCIdentifyer, users.firstName AS firstName, users.lastName AS lastName, (SELECT COUNT(*) FROM scans WHERE scans.ticketSellId = sells.id) AS scanNumber FROM ticket_sells AS sells INNER JOIN tickets as tickets ON tickets.id = sells.ticketId LEFT JOIN users ON users.id = sells.userId LEFT JOIN positions ON positions.id = sells.positionId  WHERE sells.id=?",
         values: [id],
       })
     }
     else{
       /** Running SQL Query */
       result = await excuteQuery({
-        query: "SELECT sells.id AS id, sells.datetime AS datetime, sells.validityStartDatetime AS validityStartDatetime, sells.validityStopDatetime AS validityStopDatetime, sells.allowedScanNumber AS allowedScanNumber, sells.printed AS printed, sells.canceled AS canceled, sells.userId AS userId, sells.clientId AS clientId, tickets.id AS 'ticketId', tickets.category AS category, tickets.type AS type, tickets.price AS price, tickets.needReservation AS needReservation, tickets.forParking AS forParking, tickets.forGraphicalSell AS forGraphicalSell, tickets.NFCIdentifyer AS NFCIdentifyer FROM ticket_sells AS sells INNER JOIN tickets as tickets ON tickets.id = sells.ticketId ORDER BY sells.datetime DESC",
+        query: "SELECT sells.id AS id, sells.datetime AS datetime, sells.validityStartDatetime AS validityStartDatetime, sells.validityStopDatetime AS validityStopDatetime, sells.allowedScanNumber AS allowedScanNumber, sells.printed AS printed, sells.canceled AS canceled, sells.userId AS userId, sells.clientId AS clientId, tickets.id AS 'ticketId', tickets.category AS category, tickets.type AS type, tickets.price AS price, tickets.needReservation AS needReservation, tickets.forParking AS forParking, tickets.forGraphicalSell AS forGraphicalSell, tickets.NFCIdentifyer AS NFCIdentifyer, (SELECT COUNT(*) FROM scans WHERE scans.ticketSellId = sells.id) AS scanNumber FROM ticket_sells AS sells INNER JOIN tickets as tickets ON tickets.id = sells.ticketId ORDER BY sells.datetime DESC",
         values: [],
       })
     }
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
 
@@ -76,12 +74,18 @@ export async function POST(request) {
         values: [id],
       })
     }
+    /**  Ticket Print Operation */
+    if (operation === "print"){
+      let id = await request.nextUrl.searchParams.get("id");
+      result = await excuteQuery({
+        query: "UPDATE ticket_sells SET printed = TRUE WHERE id = ?",
+        values: [id],
+      })
+    }
+    return NextResponse.json({ result });
   }
   catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
-    return NextResponse.json({ result });
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
 
@@ -96,11 +100,9 @@ export async function DELETE(request) {
       query: 'DELETE FROM tickets WHERE id=?',
       values: [id],
     })
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }

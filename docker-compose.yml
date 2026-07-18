@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: e_ticket_pro_odb
+      MYSQL_USER: e_ticket_pro_user
+      MYSQL_PASSWORD: r00t
+      MYSQL_ROOT_PASSWORD: root_password_secure
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./e_ticket_prodb.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "e_ticket_pro_user", "-pr00t"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DB_HOST=db
+        - DB_PORT=3306
+        - DB_DATABASE=e_ticket_pro_odb
+        - DB_USER=e_ticket_pro_user
+        - DB_PASSWORD=r00t
+        - API_USER_ENDPOINT=/api
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: e_ticket_pro_odb
+      DB_USER: e_ticket_pro_user
+      DB_PASSWORD: r00t
+      API_USER_ENDPOINT: /api
+      NODE_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db-data:

@@ -127,7 +127,7 @@ export default function Dashboard(props) {
       response.json().then(function(data){
         if (data.result){
           setSells(data.result.filter(function(item){
-            return item.category != "Parking"
+            return item.category != "Parking" && item.printed != 1 && item.canceled != 1
           }))
         }
       })
@@ -179,20 +179,25 @@ export default function Dashboard(props) {
     /** Getting Data Again */
     fetch(process.env.API_USER_ENDPOINT.concat("/tickets/sells?operation=cancel&id=").concat(id), OPTIONS).then(function(response){
       response.json().then(function(data){
+        init()
       })
     })
-    /** Page Refresh */
-    router.refresh()
   }
 
   const loadPrintableTicketPage = function(event, id){
     event.preventDefault()
-    router.replace('/application/cashier/tickets/printable/ticket?id='.concat(id))
+    const OPTIONS = {
+      method: "POST", 
+    }
+    fetch(process.env.API_USER_ENDPOINT.concat("/tickets/sells?operation=print&id=").concat(id), OPTIONS).then(function(response){
+      window.open('/application/cashier/tickets/printable/ticket?id=' + id, '_blank')
+      init()
+    })
   }
 
   const loadInvoicePage = function(event, id){
     event.preventDefault()
-    router.replace('/application/cashier/tickets/printable/invoice?id='.concat(id))
+    window.open('/application/cashier/tickets/printable/invoice?id=' + id, '_blank')
   }
 
   return (

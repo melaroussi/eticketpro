@@ -3,49 +3,34 @@ import * as React from 'react'
 import PropTypes from 'prop-types'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
-import CssBaseline from '@mui/material/CssBaseline'
-import Divider from '@mui/material/Divider'
-import Drawer from '@mui/material/Drawer'
-import IconButton from '@mui/material/IconButton'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import PeopleIcon from '@mui/icons-material/People'
-import ListItemText from '@mui/material/ListItemText'
-import MenuIcon from '@mui/icons-material/Menu'
 import Toolbar from '@mui/material/Toolbar'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import Avatar from '@mui/material/Avatar'
 
 /** Icons import */
-import PowerSettingsNew from '@mui/icons-material/PowerSettingsNew'
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
-import AddBusinessIcon from '@mui/icons-material/AddBusiness'
-import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import StyleIcon from '@mui/icons-material/Style'
 import LogoutIcon from '@mui/icons-material/Logout'
-import AccountTreeIcon from '@mui/icons-material/AccountTree'
-import QueryStatsIcon from '@mui/icons-material/QueryStats'
-import LocalActivityIcon from '@mui/icons-material/LocalActivity'
-import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber'
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
-import PrintIcon from '@mui/icons-material/Print'
-import QrCodeIcon from '@mui/icons-material/QrCode'
-import CorporateFareIcon from '@mui/icons-material/CorporateFare'
-import WarehouseIcon from '@mui/icons-material/Warehouse'
-import LocalShippingIcon from '@mui/icons-material/LocalShipping'
+import StyleIcon from '@mui/icons-material/Style'
 
 /** Hooks Imports */
 import { useRouter } from 'next/navigation'
 
 export default function NavigationSystem(props) {
-
   const router = useRouter()
+  let [onlineUser, setOnlineUser] = React.useState(null)
 
-  let [onlineUser, setOnlineUser] = React.useState("XX")
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const user = sessionStorage.getItem("user")
+      if (user) {
+        setOnlineUser(JSON.parse(user))
+      }
+    }
+  }, [])
 
   const handleLinks = function(e, target){
     e.preventDefault()
@@ -55,43 +40,119 @@ export default function NavigationSystem(props) {
   const logout = function(event){
     event.preventDefault()
     /** Erase the Session */
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem("user")
+    }
     router.push("/application/")
   }
 
+  const renderNavItem = (target, label, activeKey) => {
+    const isActive = props.indicator === activeKey
+    return (
+      <Button 
+        onClick={(e) => handleLinks(e, target)} 
+        sx={{ 
+          my: 1.5, 
+          mx: 0.5,
+          color: isActive ? '#0ea5e9' : '#475569', 
+          display: 'block',
+          fontWeight: isActive ? 700 : 500,
+          fontSize: '0.85rem',
+          textTransform: 'none',
+          borderRadius: '20px',
+          px: 2,
+          py: 0.5,
+          backgroundColor: isActive ? '#f0f9ff' : 'transparent',
+          transition: 'all 0.2s ease',
+          border: isActive ? '1px solid #e0f2fe' : '1px solid transparent',
+          '&:hover': {
+            backgroundColor: isActive ? '#e0f2fe' : '#f8fafc',
+            color: isActive ? '#0284c7' : '#0f172a',
+          }
+        }} 
+      >
+        {label}
+      </Button>
+    )
+  }
+
   return (
-    <AppBar>
+    <AppBar 
+      position="fixed"
+      sx={{
+        backgroundColor: 'rgba(255, 255, 255, 0.85)',
+        backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid #e2e8f0',
+        boxShadow: 'none',
+        color: '#0f172a',
+      }}
+    >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button onClick={(e)=>handleLinks(e, "cashier/tickets")} sx={{ my: 2, color: 'white', display: 'block' }} >
-              Billeterie
-            </Button>
-            <Button onClick={(e)=>handleLinks(e, "cashier/graphics")} sx={{ my: 2, color: 'white', display: 'block' }} >
-              Vente Graphique
-            </Button>
-            <Button onClick={(e)=>handleLinks(e, "cashier/articles")} sx={{ my: 2, color: 'white', display: 'block' }} >
-              Boutique
-            </Button>
-            <Button onClick={(e)=>handleLinks(e, "cashier/parking")} sx={{ my: 2, color: 'white', display: 'block' }} >
-              Parking
-            </Button>
-            <Button onClick={(e)=>handleLinks(e, "cashier/reports")} sx={{ my: 2, color: 'white', display: 'block' }} >
-              PV Journalier Global
-            </Button>
-            <Button onClick={(e)=>handleLinks(e, "cashier/reports/printable/cashier-daily-report?id=2")} sx={{ my: 2, color: 'white', display: 'block' }} >
-              PV Journalier Partiel
-            </Button>
+        <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
+          <Stack direction="row" alignItems="center" spacing={1.5} sx={{ cursor: 'pointer' }} onClick={(e) => handleLinks(e, "cashier")}>
+            <Avatar sx={{ bgcolor: '#0ea5e9', width: 34, height: 34 }}>
+              <StyleIcon sx={{ fontSize: '1.15rem' }} />
+            </Avatar>
+            <Typography 
+              variant="h6" 
+              noWrap 
+              sx={{ 
+                fontWeight: 750, 
+                fontSize: '1.05rem', 
+                letterSpacing: '-0.02em', 
+                fontFamily: '"Outfit", sans-serif',
+                background: 'linear-gradient(135deg, #0f172a 0%, #0ea5e9 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              eTicket Pro
+            </Typography>
+          </Stack>
+
+          <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'center' }}>
+            {renderNavItem("cashier/tickets", "Billetterie", "tickets")}
+            {renderNavItem("cashier/graphics", "Vente Graphique", "graphics")}
+            {renderNavItem("cashier/articles/add-sell", "Boutique", "articles")}
+            {renderNavItem("cashier/parking/add-sell", "Parking", "parking")}
+            {renderNavItem("cashier/reports", "Rapports de Clôture", "reports")}
+            {onlineUser && renderNavItem(`cashier/reports/printable/cashier-daily-report?id=${onlineUser.id}`, "Mon PV Journalier", "daily-report")}
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <IconButton color="inherit" edge="end" onClick={(e)=>handleLinks(e, "cashier/profile")} sx={{ mr: 1 }}>
+
+          <Stack direction="row" spacing={1} alignItems="center">
+            {onlineUser && (
+              <Typography variant="body2" sx={{ display: { xs: 'none', md: 'block' }, fontWeight: 600, color: '#475569', fontSize: '0.8rem' }}>
+                {onlineUser.firstName} {onlineUser.lastName} (Caissier)
+              </Typography>
+            )}
+            <IconButton 
+              color="inherit" 
+              onClick={(e) => handleLinks(e, "cashier/profile")}
+              sx={{ 
+                color: '#64748b', 
+                '&:hover': { color: '#0ea5e9', backgroundColor: '#f0f9ff' } 
+              }}
+            >
               <AccountCircleIcon />
             </IconButton>
-            <IconButton color="inherit" edge="end" onClick={logout}>
+            <IconButton 
+              color="inherit" 
+              onClick={logout}
+              sx={{ 
+                color: '#ef4444', 
+                '&:hover': { color: '#dc2626', backgroundColor: '#fef2f2' } 
+              }}
+            >
               <LogoutIcon />
             </IconButton>
-          </Box>
+          </Stack>
         </Toolbar>
       </Container>
     </AppBar>
   )
+}
+
+NavigationSystem.propTypes = {
+  indicator: PropTypes.string,
+  element: PropTypes.string
 }

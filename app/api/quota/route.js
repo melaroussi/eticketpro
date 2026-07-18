@@ -13,15 +13,13 @@ export async function POST(request) {
       let data = await request.json()
       /** Running SQL Query */
       result = await excuteQuery({
-        query: "SELECT a.assigned, a.illimited, a.quota, a.ticketId, COUNT(ts.id) AS 'sellsNumber' FROM assignments a INNER JOIN ticket_sells ts WHERE ts.userId = ? GROUP BY a.ticketId",
-        values: [data.userId],
+        query: "SELECT a.ticketId, a.assigned, a.illimited, a.quota, COALESCE(sells.sellsNumber, 0) AS 'sellsNumber' FROM assignments a LEFT JOIN (SELECT ticketId, COUNT(id) AS sellsNumber FROM ticket_sells WHERE userId = ? GROUP BY ticketId) sells ON a.ticketId = sells.ticketId WHERE a.userId = ?",
+        values: [data.userId, data.userId],
       })
     }
+    return NextResponse.json({ result });
   }
   catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
-    return NextResponse.json({ result });
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }

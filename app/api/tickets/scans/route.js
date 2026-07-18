@@ -15,6 +15,67 @@ export async function POST(request) {
     /** Getting Reader Id */
     let readerIP = await request.nextUrl.searchParams.get("readerIP");
 
+    // --- PASS/Subscription Verification Branch ---
+    if (ticketId && ticketId.startsWith("PASS-")) {
+      const passResults = await excuteQuery({
+        query: 'SELECT * FROM pass_subscriptions WHERE qrCode=? AND status="Actif"',
+        values: [ticketId]
+      });
+
+      if (!passResults || passResults.length === 0) {
+        return NextResponse.json({
+          result: {
+            status: "FAILURE",
+            reason: "PASS invalide ou expiré"
+          }
+        });
+      }
+
+      const pass = passResults[0];
+      const today = new Date().toISOString().split('T')[0];
+      
+      const start = new Date(pass.startDate).toISOString().split('T')[0];
+      const end = new Date(pass.endDate).toISOString().split('T')[0];
+
+      if (today < start || today > end) {
+        return NextResponse.json({
+          result: {
+            status: "FAILURE",
+            reason: "PASS hors période de validité"
+          }
+        });
+      }
+
+      const zoneIdResults = await excuteQuery({
+        query: "SELECT zoneId from readers WHERE ip=?",
+        values: [readerIP]
+      });
+
+      if (!zoneIdResults || zoneIdResults.length === 0) {
+        return NextResponse.json({
+          result: {
+            status: "FAILURE",
+            reason: "Lecteur ou zone non identifié"
+          }
+        });
+      }
+
+      const zoneId = zoneIdResults[0].zoneId;
+
+      await excuteQuery({
+        query: "INSERT INTO scans(zoneId, passSubscriptionId) VALUES (?, ?)",
+        values: [zoneId, pass.id]
+      });
+
+      return NextResponse.json({
+        result: {
+          status: "SUCCESS",
+          message: `PASS Admis (${pass.passType})`
+        }
+      });
+    }
+    // --- End of PASS Verification Branch ---
+
     /** Getting zoneId by IP **/
     let zoneIdResults = await excuteQuery({
       query:"SELECT zoneId from readers WHERE ip=?",
@@ -96,11 +157,9 @@ export async function POST(request) {
       }
     }
 
-  }    
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }

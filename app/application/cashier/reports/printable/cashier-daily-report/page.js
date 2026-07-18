@@ -135,7 +135,7 @@ export default function Dashboard(props) {
     <Grid container position={"fixed"}  flexDirection="row" justifyContent="flex-start" alignContent={"flex-start"}  alignItems="stretch" sx={{ width:"100%", height:"100vh", backgroundColor: grey[100]}}>
       { /** AppBar */}
       <Grid item xs={12} sm={12}>
-        <NavigationSystem indicator={"tickets"} element={"Espace Billeterie"}/>
+        <NavigationSystem indicator={"daily-report"} element={"Mon PV Journalier"}/>
       </Grid>
       {/** Category Buttons */}
       <Grid item xs={12} sm={12} sx={{paddingTop: 10, height: "100%"}} >

@@ -96,10 +96,7 @@ export default function Dashboard(props) {
     router.push("/application/manager/articles/delete?id=".concat(id))
   }
 
-  const loadDiscountPage = function(event, id){
-    event.preventDefault()
-    router.push("/application/manager/articles/discount?id=".concat(id))
-  }
+
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -150,9 +147,7 @@ export default function Dashboard(props) {
                             <IconButton color="primary" onClick={(e)=>loadDeletePage(e, row.id)}>
                               <DeleteOutlineIcon/>
                             </IconButton>
-                            <Button variant="text" onClick={(e)=>loadDiscountPage(e, row.id)}>
-                              Promo
-                            </Button>
+
                           </TableCell>
                         </TableRow>
                       )

@@ -1,4 +1,5 @@
 import excuteQuery from '../msdb-connexion';
+import sendEmail from '../send-email';
 
 import { NextResponse } from 'next/server';
 
@@ -13,7 +14,7 @@ export async function GET(request) {
     if (operation === "get-all"){
       /** Running SQL Query */
       result = await excuteQuery({
-        query: 'SELECT users.id, users.firstName, users.lastName, users.email, users.phone, users.gender, users.businessName, users.type, users.status, users.departmentId as departmentId, departments.label as department, users.profile as profile FROM users LEFT JOIN departments ON departments.id = users.departmentId',
+        query: 'SELECT users.id, users.firstName, users.lastName, users.email, users.phone, users.gender, users.businessName, users.type, users.status, users.departmentId as departmentId, departments.label as department, users.profile as profile, users.allowedModules as allowedModules FROM users LEFT JOIN departments ON departments.id = users.departmentId',
         values: [],
       })
     }
@@ -23,7 +24,7 @@ export async function GET(request) {
       let id = await request.nextUrl.searchParams.get("id");
       /** Running SQL Query */
       result = await excuteQuery({
-        query: 'SELECT users.id, users.firstName, users.lastName, users.email, users.phone, users.password, users.gender, users.businessName, users.type, users.status, users.departmentId as departmentId, departments.label as department, users.profile as profile FROM users LEFT JOIN departments ON departments.id = users.departmentId WHERE users.id=?',
+        query: 'SELECT users.id, users.firstName, users.lastName, users.email, users.phone, users.password, users.gender, users.businessName, users.type, users.status, users.departmentId as departmentId, departments.label as department, users.profile as profile, users.allowedModules as allowedModules FROM users LEFT JOIN departments ON departments.id = users.departmentId WHERE users.id=?',
         values: [id],
       })
     }
@@ -35,7 +36,7 @@ export async function GET(request) {
 
       /** Running SQL Query */
       result = await excuteQuery({
-        query: "SELECT users.id, users.firstName, users.lastName, users.email, users.phone, users.gender, users.password, users.businessName, users.type, users.status, users.departmentId as departmentId, departments.label as department, users.profile as profile FROM users LEFT JOIN departments ON departments.id = users.departmentId WHERE users.email=? AND users.password=?",
+        query: "SELECT users.id, users.firstName, users.lastName, users.email, users.phone, users.gender, users.password, users.businessName, users.type, users.status, users.departmentId as departmentId, departments.label as department, users.profile as profile, users.allowedModules as allowedModules FROM users LEFT JOIN departments ON departments.id = users.departmentId WHERE users.email=? AND users.password=?",
         values: [email, password],
       })
 console.log(operation)
@@ -51,19 +52,15 @@ console.log(result)
         values: [email],
       })
     }
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
 
 /** POST Method */
 export async function POST(request) {
-  let result = {}
-
   try {
     let operation = await request.nextUrl.searchParams.get("operation")
     /** Create operation */
@@ -71,30 +68,58 @@ export async function POST(request) {
       let data = await request.json()
       console.log(data)
       /** Running SQL Query */
-      result = await excuteQuery({
+      const result = await excuteQuery({
         query: "INSERT INTO users(firstName, lastName, gender, email, phone, password, departmentId, profile, businessName, type, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         values: [data.firstName, data.lastName, data.gender, data.email, data.phone, data.password, data.departmentId, data.profile, data.businessName, data.type, data.status],
       })
       console.log(result)
+      
+      // Async send registration email if success
+      if (result && result.insertId) {
+        sendEmail({
+          to: data.email,
+          subject: "Bienvenue sur e-Ticket Pro !",
+          html: `<h3>Bonjour ${data.firstName} ${data.lastName},</h3>
+                 <p>Votre compte e-Ticket Pro a été créé avec succès.</p>
+                 <p><strong>Identifiant (Email) :</strong> ${data.email}</p>
+                 <p><strong>Profil :</strong> ${data.profile}</p>
+                 <br/>
+                 <p>L'équipe e-Ticket Pro</p>`
+        }).catch(err => console.error("Email send failed:", err));
+      }
+      
+      return NextResponse.json({ result });
     }
     
-    /** Create operation */
+    /** Update operation */
     if (operation === "update"){
       let id = await request.nextUrl.searchParams.get("id");
       let data = await request.json();
       /** Running SQL Query */
-      result = await excuteQuery({
+      const result = await excuteQuery({
         query: 'UPDATE users SET firstName=?, lastName=?, gender=?, email=?, phone=?, password=?, departmentId=?, profile=?, businessName=?, type=?, status=? WHERE id = ?',
         values: [data.firstName, data.lastName, data.gender, data.email, data.phone, data.password, data.departmentId, data.profile, data.businessName, data.type, data.status, id],
       })
+      return NextResponse.json({ result });
     }
+
+    /** Update permissions operation */
+    if (operation === "update-permissions"){
+      let id = await request.nextUrl.searchParams.get("id");
+      let data = await request.json();
+      /** Running SQL Query */
+      const result = await excuteQuery({
+        query: 'UPDATE users SET allowedModules=? WHERE id = ?',
+        values: [data.allowedModules, id],
+      })
+      return NextResponse.json({ result });
+    }
+    
+    return NextResponse.json({ result: {} });
   } 
   catch(error) {
-    console.log(error)
-    return NextResponse.json({ error });
-  }
-  finally{
-    return NextResponse.json({ result });
+    console.error(error);
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
 
@@ -109,11 +134,9 @@ export async function DELETE(request) {
       query: 'DELETE FROM users WHERE id=?',
       values: [id],
     })
-  } 
-  catch(error) {
-    return NextResponse.json({ error });
-  }
-  finally{
     return NextResponse.json({ result });
+  }
+  catch(error) {
+    return NextResponse.json({ error: error.message || error }, { status: 500 });
   }
 }
