@@ -43,9 +43,41 @@ services:
       DB_PASSWORD: r00t
       API_USER_ENDPOINT: /api
       NODE_ENV: production
+      BACKEND_API_URL: http://backend:8000
     depends_on:
       db:
         condition: service_healthy
+      backend:
+        condition: service_started
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: e_ticket_pro_odb
+      DB_USER: e_ticket_pro_user
+      DB_PASSWORD: r00t
+      PORT: 8000
+      MQTT_BROKER_URL: mqtt://mqtt-broker:1883
+    depends_on:
+      db:
+        condition: service_healthy
+      mqtt-broker:
+        condition: service_started
+
+  mqtt-broker:
+    image: eclipse-mosquitto:2.0
+    restart: always
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    command: mosquitto -c /mosquitto-no-auth.conf
 
 volumes:
   db-data:
