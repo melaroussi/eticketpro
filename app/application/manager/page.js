@@ -34,10 +34,16 @@ export default function Dashboard() {
   let [stats, setStats] = React.useState(null);
   let [loading, setLoading] = React.useState(true);
 
-  const fetchDashboardData = async () => {
+  const fetchDashboardData = async (isInitial = false) => {
     try {
-      setLoading(true);
-      const response = await fetch('/api/manager/dashboard');
+      if (isInitial) setLoading(true);
+      const response = await fetch(`/api/manager/dashboard?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache'
+        }
+      });
       const json = await response.json();
       if (json.success) {
         setStats(json.data);
@@ -49,14 +55,21 @@ export default function Dashboard() {
     }
   };
 
-  /** Getting Online User from Session and Route Protection */
+  /** Getting Online User from Session and Route Protection with Auto-Refresh */
   React.useEffect(function(){
     const user = sessionStorage.getItem("user");
     if (!user) {
       router.replace("/application");
     } else {
       setOnlineUser(JSON.parse(user));
-      fetchDashboardData();
+      fetchDashboardData(true);
+
+      // Live auto-refresh every 10 seconds
+      const interval = setInterval(() => {
+        fetchDashboardData(false);
+      }, 10000);
+
+      return () => clearInterval(interval);
     }
   }, [router])
 
@@ -225,7 +238,7 @@ export default function Dashboard() {
                       <TableRow>
                         <TableCell colSpan={5} align="center" sx={{ py: 4 }}>Chargement des données...</TableCell>
                       </TableRow>
-                    ) : (stats?.recentSales && stats.recentSales.length > 0) ? (
+                    ) : (Array.isArray(stats?.recentSales) && stats.recentSales.length > 0) ? (
                       stats.recentSales.map((row) => (
                         <TableRow key={row.id}>
                           <TableCell align="left">{moment(row.datetime).format("DD/MM/YYYY HH:mm:ss")}</TableCell>
@@ -257,7 +270,7 @@ export default function Dashboard() {
               <Stack spacing={2}>
                 {loading ? (
                   <Typography align="center" color="text.secondary" sx={{ py: 4 }}>Chargement du flux...</Typography>
-                ) : (stats?.recentScans && stats.recentScans.length > 0) ? (
+                ) : (Array.isArray(stats?.recentScans) && stats.recentScans.length > 0) ? (
                   stats.recentScans.map((row) => (
                     <Box 
                       key={row.id} 

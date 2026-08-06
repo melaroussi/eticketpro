@@ -1074,7 +1074,7 @@ export class ApiController {
   async getManagerDashboard(@Res() res: Response) {
     try {
       const ticketRevenue = await this.db.executeQuery(
-        "SELECT SUM(t.price) AS total FROM ticket_sells ts JOIN tickets t ON ts.ticketId = t.id WHERE ts.canceled = 0"
+        "SELECT SUM(t.price) AS total FROM ticket_sells ts JOIN tickets t ON ts.ticketId = t.id WHERE ts.canceled = 0 OR ts.canceled IS NULL"
       );
       const ticketSales = (ticketRevenue && ticketRevenue[0] && ticketRevenue[0].total) || 0;
 
@@ -1098,7 +1098,7 @@ export class ApiController {
         "SELECT ts.id, ts.datetime, t.category, t.type, t.price, u.firstName, u.lastName FROM ticket_sells ts JOIN tickets t ON ts.ticketId = t.id LEFT JOIN users u ON ts.userId = u.id ORDER BY ts.datetime DESC LIMIT 5"
       );
       const recentScans = await this.db.executeQuery(
-        "SELECT s.id, s.datetime, s.status, z.label AS zoneLabel FROM scans s LEFT JOIN zones z ON s.zoneId = z.id ORDER BY s.datetime DESC LIMIT 5"
+        "SELECT s.id, s.datetime, 'Accepté' AS status, z.label AS zoneLabel FROM scans s LEFT JOIN zones z ON s.zoneId = z.id ORDER BY s.datetime DESC LIMIT 5"
       );
 
       return res.status(HttpStatus.OK).json({
@@ -1108,8 +1108,8 @@ export class ApiController {
           totalScans,
           activePass,
           lowStockCount,
-          recentSales,
-          recentScans
+          recentSales: Array.isArray(recentSales) ? recentSales : [],
+          recentScans: Array.isArray(recentScans) ? recentScans : []
         }
       });
     } catch (error) {
