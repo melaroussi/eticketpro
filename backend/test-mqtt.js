@@ -3,8 +3,8 @@ const mqtt = require('mqtt');
 // Connect to the Mosquitto container inside the Docker network
 const client = mqtt.connect('mqtt://mqtt-broker:1883');
 
-const reqTopic = 'zoo/validators/scan';
-const resTopic = 'zoo/validators/response/10.10.10.10';
+const reqTopic = process.env.MQTT_REQUEST_TOPIC || 'museum/validators/scan';
+const resTopic = (process.env.MQTT_RESPONSE_TOPIC || 'museum/validators/response') + '/10.10.10.10';
 
 client.on('connect', () => {
   console.log('Connected to MQTT Broker. Subscribing to response topic...');

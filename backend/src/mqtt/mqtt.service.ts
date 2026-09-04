@@ -9,8 +9,8 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
 
   // Load configuration from environment variables with safe defaults
   private readonly brokerUrl = process.env.MQTT_BROKER_URL || 'mqtt://broker.hivemq.com:1883';
-  private readonly reqTopic = process.env.MQTT_REQUEST_TOPIC || 'zoo/validators/scan';
-  private readonly resTopic = process.env.MQTT_RESPONSE_TOPIC || 'zoo/validators/response';
+  private readonly reqTopic = process.env.MQTT_REQUEST_TOPIC || 'museum/validators/scan';
+  private readonly resTopic = process.env.MQTT_RESPONSE_TOPIC || 'museum/validators/response';
 
   constructor(private readonly accessControl: AccessControlService) {}
 
