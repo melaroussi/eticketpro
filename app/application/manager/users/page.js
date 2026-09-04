@@ -340,7 +340,7 @@ export default function Dashboard(props) {
               label={
                 <Box>
                   <Typography variant="body2" sx={{ fontWeight: 700 }}>Zones & Lecteurs</Typography>
-                  <Typography variant="caption" color="text.secondary">Configuration physique du Zoo et lecteurs NFC</Typography>
+                  <Typography variant="caption" color="text.secondary">Configuration physique du Musée et lecteurs NFC</Typography>
                 </Box>
               }
               sx={{ mb: 1.5 }}

@@ -39,10 +39,10 @@ export default function Contact() {
   };
 
   const reasons = [
-    { key: "R01", value: "Groupes & Sorties Scolaires", label: "Visites Groupes / Scolaires" },
-    { key: "R02", value: "Événementiel & Séminaires", label: "Séminaires / Anniversaires" },
+    { key: "R01", value: "Groupes & Sorties Scolaires", label: "Visites Scolaires & Étudiants" },
+    { key: "R02", value: "Visite Privée & Événements", label: "Visites Privées & Mécénat" },
     { key: "R03", value: "Support Billetterie en ligne", label: "Aide / Problème e-Ticket" },
-    { key: "R04", value: "Informations Générales", label: "Questions Diverses" },
+    { key: "R04", value: "Informations Générales", label: "Horaires & Expositions" },
   ];
 
   return (
@@ -51,7 +51,7 @@ export default function Contact() {
       id="contact-section" 
       sx={{ 
         py: 10,
-        backgroundColor: 'rgba(6, 95, 70, 0.02)',
+        backgroundColor: 'rgba(15, 23, 42, 0.02)',
       }}
     >
       <Container maxWidth="lg">
@@ -60,25 +60,25 @@ export default function Contact() {
             <Stack direction="column" spacing={3}>
               <Box>
                 <Typography variant="overline" sx={{ fontWeight: 800, color: 'secondary.main', letterSpacing: 1.5 }}>
-                  Des questions ?
+                  Informations & Accueil
                 </Typography>
                 <Typography variant="h3" sx={{ fontWeight: 800, color: 'primary.dark', mt: 1 }}>
-                  Contactez le Zoo
+                  Contactez le Musée
                 </Typography>
               </Box>
               <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>
-                Que ce soit pour organiser une sortie scolaire, planifier un anniversaire, ou pour toute question relative à l'achat de vos billets électroniques, nos équipes sont à votre entière disposition.
+                Pour planifier une visite guidée, réserver un parcours scolaire, privatiser une galerie ou pour toute assistance sur vos billets électroniques, notre équipe d'accueil et de médiation culturelle est à votre écoute.
               </Typography>
 
               <Stack spacing={3} sx={{ mt: 2 }}>
                 <Stack direction="row" spacing={2} alignItems="center">
-                  <Avatar sx={{ bgcolor: 'primary.main', color: '#ffffff' }}>
+                  <Avatar sx={{ bgcolor: 'secondary.main', color: '#ffffff' }}>
                     <LocationOnIcon />
                   </Avatar>
                   <Box>
                     <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>Adresse</Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Jardin Zoologique de Rabat, Annakhil, Rabat, Maroc
+                      Musée National des Arts & Civilisations, Avenue Mohamed V, Rabat, Maroc
                     </Typography>
                   </Box>
                 </Stack>

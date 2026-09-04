@@ -19,19 +19,19 @@ export default function Album() {
   const customTheme = createTheme({
     palette: {
       primary: {
-        main: '#065f46', // Forest Emerald Green
-        light: '#10b981', // Vivid Emerald
-        dark: '#043e2e',
+        main: '#0f172a', // Imperial Midnight Slate / Deep Navy
+        light: '#1e293b', // Refined Slate
+        dark: '#020617', // Obsidian Black
         contrastText: '#ffffff',
       },
       secondary: {
-        main: '#d97706', // Safari Amber
-        light: '#f59e0b',
-        dark: '#b45309',
+        main: '#d97706', // Imperial Gold & Bronze
+        light: '#f59e0b', // Warm Amber
+        dark: '#b45309', // Deep Bronze
         contrastText: '#ffffff',
       },
       background: {
-        default: '#f8fafc', // Slate 50
+        default: '#f8fafc', // Marble Alabaster
         paper: '#ffffff',
       },
       text: {
@@ -67,8 +67,8 @@ export default function Album() {
           },
           containedPrimary: {
             '&:hover': {
-              backgroundColor: '#044e37',
-              boxShadow: '0 10px 20px -10px rgba(6, 95, 70, 0.4)',
+              backgroundColor: '#1e293b',
+              boxShadow: '0 10px 20px -10px rgba(15, 23, 42, 0.4)',
             },
           },
           containedSecondary: {

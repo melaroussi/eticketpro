@@ -223,8 +223,8 @@ export default function SubscriptionsPage() {
                 <Card sx={{ mt: 3, borderRadius: 3, border: '1px solid #ddd', boxShadow: 'none' }}>
                   <CardContent>
                     <Box id="pass-printable-card" sx={{ textAlign: 'center', p: 1 }}>
-                      <div className="header" style={{ fontWeight: 'bold', fontSize: '20px', color: '#1e3a8a', marginBottom: '5px' }}>ZOO DE RABAT</div>
-                      <div className="subtitle" style={{ fontSize: '12px', color: '#666', marginBottom: '15px' }}>PASS ABONNEMENT ANNUEL</div>
+                      <div className="header" style={{ fontWeight: 'bold', fontSize: '17px', color: '#0f172a', marginBottom: '5px' }}>MUSÉE DES ARTS & CIVILISATIONS</div>
+                      <div className="subtitle" style={{ fontSize: '12px', color: '#b45309', fontWeight: 700, marginBottom: '15px' }}>PASS CULTURE ANNUEL</div>
                       {qrCodeUrl && (
                         <img className="qr" src={qrCodeUrl} alt="QR Code" style={{ width: '150px', height: '150px', margin: '0 auto 10px', display: 'block' }} />
                       )}
@@ -236,7 +236,7 @@ export default function SubscriptionsPage() {
                         <div className="details"><strong>Au :</strong> {createdPass.endDate}</div>
                       </div>
                       <div className="footer" style={{ fontSize: '9px', color: '#999', marginTop: '15px', borderTop: '1px solid #eee', paddingTop: '8px' }}>
-                        Présentez ce PASS aux lecteurs d'accès à l'entrée.
+                        Présentez ce PASS aux lecteurs d'accès à l'entrée des galeries.
                       </div>
                     </Box>
                     <Button variant="outlined" startIcon={<PrintIcon />} fullWidth onClick={handlePrint} sx={{ mt: 2, borderRadius: 2, textTransform: 'none' }}>

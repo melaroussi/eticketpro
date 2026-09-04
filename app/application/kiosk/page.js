@@ -20,7 +20,7 @@ import { useRouter } from 'next/navigation';
 // Multilingual translations
 const TRANSLATIONS = {
   fr: {
-    welcome: "Bienvenue au Jardin Zoologique de Rabat",
+    welcome: "Bienvenue au Musée National des Arts & Civilisations",
     selectLang: "Veuillez choisir votre langue",
     chooseTickets: "Sélectionnez vos Billets",
     back: "Retour",
@@ -33,13 +33,13 @@ const TRANSLATIONS = {
     processing: "Traitement du paiement en cours...",
     paySuccess: "Paiement Réussi !",
     printing: "Impression de vos billets...",
-    thankYou: "Merci de votre visite et bonne journée !",
+    thankYou: "Merci de votre visite et bonne découverte !",
     kioskTitle: "Borne Interactive de Billetterie",
     emptyCart: "Votre panier est vide.",
     home: "Accueil"
   },
   en: {
-    welcome: "Welcome to Rabat National Zoo",
+    welcome: "Welcome to the National Museum of Arts & Civilizations",
     selectLang: "Please select your language",
     chooseTickets: "Select Your Tickets",
     back: "Back",
@@ -52,13 +52,13 @@ const TRANSLATIONS = {
     processing: "Processing payment...",
     paySuccess: "Payment Successful!",
     printing: "Printing your tickets...",
-    thankYou: "Thank you for your visit, have a great day!",
+    thankYou: "Thank you for visiting, enjoy your exhibition!",
     kioskTitle: "Self-Service Ticket Kiosk",
     emptyCart: "Your cart is empty.",
     home: "Welcome Screen"
   },
   ar: {
-    welcome: "مرحباً بكم في الحديقة الوطنية للحيوانات بالرباط",
+    welcome: "مرحباً بكم في المتحف الوطني للفنون والحضارات",
     selectLang: "الرجاء اختيار لغتكم",
     chooseTickets: "اختر تذاكرك",
     back: "رجوع",
@@ -262,7 +262,7 @@ export default function KioskPage() {
                             {ticket.category} ({ticket.type})
                           </Typography>
                           <Typography variant="subtitle2" sx={{ color: 'rgba(255,255,255,0.5)' }}>
-                            {ticket.description || "Entrée standard au Jardin Zoologique"}
+                            {ticket.description || "Entrée standard aux galeries du Musée"}
                           </Typography>
                         </Stack>
 

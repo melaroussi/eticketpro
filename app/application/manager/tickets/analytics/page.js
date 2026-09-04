@@ -282,7 +282,7 @@ export default function Dashboard() {
                 Tableau de Bord & Reporting de Billetterie
               </Typography>
               <Typography variant="body2" sx={{ opacity: 0.85, mt: 0.5 }}>
-                Suivez en temps réel le chiffre d'affaires, les volumes de ventes de tickets et l'état des scans physiques aux portiques du Zoo National de Rabat.
+                Suivez en temps réel le chiffre d'affaires, les volumes de ventes de tickets et l'état des scans physiques aux portiques du Musée National des Arts & Civilisations.
               </Typography>
             </Grid>
             <Grid item xs={12} md={4} sx={{ textAlign: { md: 'right' } }}>

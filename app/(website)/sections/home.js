@@ -30,10 +30,10 @@ export default function Section() {
     return today.toISOString().split('T')[0];
   });
 
-  // Calculate pricing
-  const priceAdult = 80;
-  const priceChild = 50;
-  const priceSafari = 30;
+  // Calculate pricing for Museum
+  const priceAdult = 70; // Plein Tarif
+  const priceChild = 40; // Tarif Réduit (Étudiant/Jeune)
+  const priceSafari = 35; // Option Exposition Temporaire & Audioguide
   const total = (adults * priceAdult) + (children * priceChild) + (safari ? (adults + children) * priceSafari : 0);
 
   const incrementAdults = () => setAdults(prev => prev + 1);
@@ -69,11 +69,11 @@ export default function Section() {
     });
   }
 
-  // Live park hours check
+  // Live museum hours check (9h30 - 19h00)
   const [isOpen, setIsOpen] = React.useState(true);
   React.useEffect(() => {
     const hours = new Date().getHours();
-    setIsOpen(hours >= 9 && hours < 18);
+    setIsOpen(hours >= 9 && hours < 19);
   }, []);
 
   React.useEffect(() => {
@@ -96,7 +96,7 @@ export default function Section() {
       id="home-section" 
       sx={{
         position: "relative",
-        backgroundImage: "linear-gradient(135deg, rgba(6, 95, 70, 0.93) 0%, rgba(4, 62, 46, 0.98) 100%), url('https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=1600&auto=format')",
+        backgroundImage: "linear-gradient(135deg, rgba(15, 23, 42, 0.90) 0%, rgba(2, 6, 23, 0.95) 100%), url('/images/museum_hero_bg.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         pt: { xs: 16, md: 20 },
@@ -108,7 +108,7 @@ export default function Section() {
         overflow: "hidden",
       }}
     >
-      {/* Background patterns */}
+      {/* Background ambient lighting */}
       <Box sx={{
         position: "absolute",
         top: "-10%",
@@ -116,7 +116,7 @@ export default function Section() {
         width: "50vw",
         height: "50vw",
         borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%)",
+        background: "radial-gradient(circle, rgba(217, 119, 6, 0.15) 0%, transparent 70%)",
         pointerEvents: "none"
       }} />
 
@@ -126,7 +126,7 @@ export default function Section() {
             <Stack direction={"column"} spacing={4}>
               <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
                 <Chip 
-                  label="Jardin Zoologique National de Rabat" 
+                  label="Musée National des Arts & Civilisations" 
                   color="secondary"
                   variant="filled"
                   sx={{ 
@@ -146,13 +146,13 @@ export default function Section() {
                   fontWeight: 900, 
                   lineHeight: 1.15,
                   fontSize: { xs: '2.5rem', sm: '3.5rem', md: '3.75rem' },
-                  textShadow: '0 4px 10px rgba(0,0,0,0.2)',
+                  textShadow: '0 4px 10px rgba(0,0,0,0.3)',
                 }}
               >
-                Vivez l'Aventure Sauvage au Cœur du Maroc
+                Voyagez à Travers les Siècles et les Chefs-d'Œuvre
               </Typography>
               <Typography variant="h6" align="left" sx={{ fontWeight: 300, opacity: 0.9, lineHeight: 1.6, maxWidth: '600px' }}>
-                Réservez vos billets en ligne, évitez les files d'attente à l'entrée et explorez les 5 biozones recréant les plus beaux habitats d'Afrique.
+                Réservez vos billets officiels en ligne, bénéficiez d'un accès prioritaire coupe-file et explorez nos galeries permanentes, chefs-d'œuvre antiques et expositions temporaires.
               </Typography>
               
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ pt: 1 }}>
@@ -170,7 +170,7 @@ export default function Section() {
                     fontSize: '1rem',
                   }}
                 >
-                  Acheter des tickets
+                  Réserver mes billets
                 </Button>
                 <Button 
                   variant="outlined" 
@@ -190,11 +190,11 @@ export default function Section() {
                     }
                   }}
                 >
-                  Découvrir les Biozones
+                  Découvrir les Galeries
                 </Button>
               </Stack>
 
-              {/* Park Information Widget */}
+              {/* Museum Information Widget */}
               <Box 
                 sx={{ 
                   backgroundColor: 'rgba(255,255,255,0.06)', 
@@ -210,10 +210,10 @@ export default function Section() {
                     <Stack direction="row" spacing={1.5} alignItems="center">
                       <AccessTimeIcon sx={{ color: 'secondary.light', fontSize: 28 }} />
                       <Box>
-                        <Typography variant="caption" sx={{ opacity: 0.7, display: 'block' }}>Horaires</Typography>
-                        <Typography variant="body2" sx={{ fontWeight: 700 }}>09h00 - 18h00</Typography>
+                        <Typography variant="caption" sx={{ opacity: 0.7, display: 'block' }}>Horaires de Visite</Typography>
+                        <Typography variant="body2" sx={{ fontWeight: 700 }}>09h30 - 19h00</Typography>
                         <Typography variant="caption" sx={{ color: isOpen ? '#4ade80' : '#f87171', fontWeight: 700 }}>
-                          {isOpen ? '● Ouvert' : '● Fermé'}
+                          {isOpen ? '● Ouvert au Public' : '● Fermé'}
                         </Typography>
                       </Box>
                     </Stack>
@@ -222,19 +222,19 @@ export default function Section() {
                     <Stack direction="row" spacing={1.5} alignItems="center">
                       <WbSunnyIcon sx={{ color: 'secondary.light', fontSize: 28 }} />
                       <Box>
-                        <Typography variant="caption" sx={{ opacity: 0.7, display: 'block' }}>Météo au Zoo</Typography>
-                        <Typography variant="body2" sx={{ fontWeight: 700 }}>24°C Ensoleillé</Typography>
-                        <Typography variant="caption" sx={{ opacity: 0.7 }}>Visite idéale aujourd'hui</Typography>
+                        <Typography variant="caption" sx={{ opacity: 0.7, display: 'block' }}>Conservation</Typography>
+                        <Typography variant="body2" sx={{ fontWeight: 700 }}>21°C Température</Typography>
+                        <Typography variant="caption" sx={{ opacity: 0.7 }}>Salles climatisées</Typography>
                       </Box>
                     </Stack>
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <Stack direction="row" spacing={1.5} alignItems="center">
-                      <PetsIcon sx={{ color: 'secondary.light', fontSize: 28 }} />
+                      <HelpOutlineIcon sx={{ color: 'secondary.light', fontSize: 28 }} />
                       <Box>
-                        <Typography variant="caption" sx={{ opacity: 0.7, display: 'block' }}>Repas des Animaux</Typography>
-                        <Typography variant="body2" sx={{ fontWeight: 700 }}>Lions à 14h30</Typography>
-                        <Typography variant="caption" sx={{ opacity: 0.7 }}>Tous les jours</Typography>
+                        <Typography variant="caption" sx={{ opacity: 0.7, display: 'block' }}>Visite Guidée</Typography>
+                        <Typography variant="body2" sx={{ fontWeight: 700 }}>Départ 11h & 15h</Typography>
+                        <Typography variant="caption" sx={{ opacity: 0.7 }}>Guides conférenciers</Typography>
                       </Box>
                     </Stack>
                   </Grid>
@@ -249,7 +249,7 @@ export default function Section() {
               sx={{ 
                 backgroundColor: 'rgba(255, 255, 255, 0.96)', 
                 color: 'text.primary',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.25)',
                 border: 'none',
                 overflow: 'visible',
                 position: 'relative'
@@ -269,19 +269,19 @@ export default function Section() {
                 borderRadius: '8px',
                 boxShadow: '0 4px 10px rgba(217, 119, 6, 0.3)'
               }}>
-                Calculateur Tarifaire
+                Billetterie Officielle
               </Box>
               <CardContent sx={{ p: 4, pt: 5 }}>
                 <Typography variant="h5" sx={{ fontWeight: 800, mb: 0.5 }}>
                   Simulateur de Billet
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                  Estimez votre tarif et réservez instantanément.
+                  Calculez votre tarif et réservez instantanément en ligne.
                 </Typography>
 
                 <Stack spacing={3}>
                   <TextField
-                    label="Date de visite"
+                    label="Date de visite au musée"
                     type="date"
                     value={visitDate}
                     onChange={(e) => setVisitDate(e.target.value)}
@@ -293,8 +293,8 @@ export default function Section() {
                   {/* Adults Counter */}
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
                     <Box>
-                      <Typography variant="body1" sx={{ fontWeight: 700 }}>Billet Adulte</Typography>
-                      <Typography variant="caption" color="text.secondary">80 MAD (12 ans et plus)</Typography>
+                      <Typography variant="body1" sx={{ fontWeight: 700 }}>Plein Tarif (Adulte)</Typography>
+                      <Typography variant="caption" color="text.secondary">70 MAD (Collections permanentes)</Typography>
                     </Box>
                     <Stack direction="row" spacing={1} alignItems="center">
                       <IconButton onClick={decrementAdults} size="small" sx={{ border: '1px solid #cbd5e1' }} color="primary">
@@ -307,11 +307,11 @@ export default function Section() {
                     </Stack>
                   </Stack>
 
-                  {/* Children Counter */}
+                  {/* Children / Reduced Counter */}
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
                     <Box>
-                      <Typography variant="body1" sx={{ fontWeight: 700 }}>Billet Enfant</Typography>
-                      <Typography variant="caption" color="text.secondary">50 MAD (3 à 11 ans)</Typography>
+                      <Typography variant="body1" sx={{ fontWeight: 700 }}>Tarif Réduit (Jeunes / Étudiants)</Typography>
+                      <Typography variant="caption" color="text.secondary">40 MAD (Gratuit moins de 10 ans)</Typography>
                     </Box>
                     <Stack direction="row" spacing={1} alignItems="center">
                       <IconButton onClick={decrementChildren} size="small" sx={{ border: '1px solid #cbd5e1' }} color="primary">
@@ -324,21 +324,21 @@ export default function Section() {
                     </Stack>
                   </Stack>
 
-                  {/* Safari Add-on */}
-                  <Box sx={{ p: 2, bgcolor: 'primary.light', bgOpacity: 0.1, borderRadius: 3, backgroundColor: 'rgba(16, 185, 129, 0.08)' }}>
+                  {/* Exhibition + Audioguide Add-on */}
+                  <Box sx={{ p: 2, borderRadius: 3, backgroundColor: 'rgba(217, 119, 6, 0.08)', border: '1px solid rgba(217, 119, 6, 0.2)' }}>
                     <FormControlLabel
                       control={
                         <Checkbox 
                           checked={safari} 
                           onChange={(e) => setSafari(e.target.checked)} 
-                          color="primary"
+                          color="secondary"
                         />
                       }
                       label={
                         <Box>
-                          <Typography variant="body2" sx={{ fontWeight: 700, color: 'primary.dark' }}>Ajouter l'Option Safari (+30 MAD/pers)</Typography>
+                          <Typography variant="body2" sx={{ fontWeight: 700, color: 'secondary.dark' }}>Option Expo Temporaire + Audioguide (+35 MAD/pers)</Typography>
                           <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
-                            Visite guidée en camion 4x4 au milieu des animaux sauvages en liberté.
+                            Accès à la grande exposition du moment et audioguide interactif multilingue.
                           </Typography>
                         </Box>
                       }
@@ -348,18 +348,18 @@ export default function Section() {
                   {/* Price Breakdown */}
                   <Box sx={{ borderTop: '1px dashed #cbd5e1', pt: 2, mt: 1 }}>
                     <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
-                      <Typography variant="body2" color="text.secondary">Tarif Entrée Zoo</Typography>
+                      <Typography variant="body2" color="text.secondary">Entrée Collections Permanentes</Typography>
                       <Typography variant="body2" sx={{ fontWeight: 600 }}>{adults * priceAdult + children * priceChild} MAD</Typography>
                     </Stack>
                     {safari && (
                       <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
-                        <Typography variant="body2" color="text.secondary">Option Safari</Typography>
+                        <Typography variant="body2" color="text.secondary">Option Expo & Audioguide</Typography>
                         <Typography variant="body2" sx={{ fontWeight: 600 }}>{(adults + children) * priceSafari} MAD</Typography>
                       </Stack>
                     )}
                     <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mt: 2 }}>
                       <Typography variant="h6" sx={{ fontWeight: 800 }}>Total Estimé</Typography>
-                      <Typography variant="h4" color="primary.main" sx={{ fontWeight: 900 }}>{total} MAD</Typography>
+                      <Typography variant="h4" color="secondary.main" sx={{ fontWeight: 900 }}>{total} MAD</Typography>
                     </Stack>
                   </Box>
 
@@ -373,9 +373,12 @@ export default function Section() {
                       py: 1.5, 
                       borderRadius: 3, 
                       fontWeight: 700,
-                      boxShadow: '0 8px 24px rgba(6, 95, 70, 0.25)',
+                      boxShadow: '0 8px 24px rgba(15, 23, 42, 0.25)',
                       backgroundColor: 'primary.main',
-                      color: '#ffffff'
+                      color: '#ffffff',
+                      '&:hover': {
+                        backgroundColor: 'primary.light'
+                      }
                     }}
                   >
                     Réserver & Acheter maintenant

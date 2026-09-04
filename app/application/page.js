@@ -15,7 +15,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import CloseIcon from "@mui/icons-material/Close";
-import StyleIcon from "@mui/icons-material/Style";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 
 /** Hooks */
 import { useRouter } from 'next/navigation'
@@ -92,7 +92,7 @@ export default function Login() {
         sx={{ 
           width: "100vw", 
           height: "100vh", 
-          backgroundImage: 'linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.85)), url("/images/rabat_zoo_login_bg.jpg")',
+          backgroundImage: 'linear-gradient(rgba(15, 23, 42, 0.70), rgba(2, 6, 23, 0.88)), url("/images/museum_login_bg.jpg")',
           backgroundSize: "cover",
           backgroundPosition: "center",
           display: "flex",
@@ -120,13 +120,13 @@ export default function Login() {
             <Stack alignItems="center" spacing={1.5} sx={{ mb: 4 }}>
               <Avatar 
                 sx={{ 
-                  bgcolor: '#0ea5e9', 
+                  bgcolor: '#d97706', 
                   width: 56, 
                   height: 56,
-                  boxShadow: '0 8px 16px rgba(14, 165, 233, 0.3)'
+                  boxShadow: '0 8px 16px rgba(217, 119, 6, 0.3)'
                 }}
               >
-                <StyleIcon sx={{ fontSize: '1.8rem' }} />
+                <AccountBalanceIcon sx={{ fontSize: '1.8rem', color: '#ffffff' }} />
               </Avatar>
               <Stack spacing={-0.5} alignItems="center">
                 <Typography 
@@ -144,14 +144,14 @@ export default function Login() {
                 <Typography 
                   variant="caption" 
                   sx={{ 
-                    color: "#0ea5e9", 
+                    color: "#d97706", 
                     fontWeight: 700, 
                     fontSize: "0.75rem", 
                     letterSpacing: "0.1em",
                     textTransform: "uppercase"
                   }}
                 >
-                  Zoo National de Rabat
+                  Musée des Arts & Civilisations
                 </Typography>
               </Stack>
             </Stack>

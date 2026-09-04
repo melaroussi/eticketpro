@@ -14,29 +14,29 @@ import Stack from '@mui/material/Stack';
 
 const tiers = [
   {
-    title: 'Billet Enfant',
+    title: 'Tarif Réduit',
     id: 'child',
-    price: '50',
-    description: 'De 3 à 11 ans',
+    price: '40',
+    description: 'Étudiants, 10-25 ans, Enseignants',
     features: [
-      'Accès complet au Zoo',
-      'Accès aux 5 biozones',
-      'Accès libre aux aires de jeux',
-      'Gratuit pour les moins de 3 ans',
+      'Accès aux Collections Permanentes',
+      'Accès aux Galeries des Civilisations',
+      'Gratuit pour les moins de 10 ans',
+      'Option Audioguide disponible',
     ],
     buttonText: 'Choisir ce tarif',
     buttonVariant: 'outlined',
   },
   {
-    title: 'Billet Adulte',
+    title: 'Billet Découverte',
     id: 'adult',
-    price: '80',
-    description: '12 ans et plus',
+    price: '70',
+    description: 'Plein Tarif Adulte',
     features: [
-      'Accès complet au Zoo',
-      'Accès aux 5 biozones',
-      'Accès aux expositions temporaires',
-      'Option Safari disponible',
+      'Accès complet aux Collections',
+      'Accès aux 5 Grandes Galeries',
+      'Plan du musée & audioguide mobile',
+      'Option Expo Temporaire disponible',
     ],
     buttonText: 'Choisir ce tarif',
     buttonVariant: 'outlined',
@@ -44,28 +44,28 @@ const tiers = [
   {
     title: 'Pack Famille',
     id: 'family',
-    subheader: 'Le plus populaire',
-    price: '220',
-    description: '2 Adultes + 2 Enfants',
+    subheader: 'Idéal Découverte',
+    price: '180',
+    description: '2 Adultes + 2 Jeunes / Enfants',
     features: [
-      '4 tickets d\'entrée au total',
+      '4 billets d\'entrée au total',
+      'Livrets jeux & parcours jeune public',
+      'Accès coupe-file prioritaire',
       'Économisez 40 MAD',
-      'Option Safari disponible',
-      'Entrée prioritaire coupe-file',
     ],
     buttonText: 'Sélectionner le pack',
     buttonVariant: 'contained',
   },
   {
-    title: 'Pass Annuel',
+    title: 'Pass Annuel Culture',
     id: 'annual',
     price: '350',
-    description: 'Nominatif et individuel',
+    description: 'Accès illimité 365 jours',
     features: [
-      'Accès illimité pendant 365 jours',
-      '-10% sur la boutique officielle',
-      'Invitations aux événements club',
-      'Coupe-file permanent',
+      'Entrée illimitée collections + expos',
+      'Invitations exclusives aux vernissages',
+      '-15% à la Librairie-Boutique',
+      'Coupe-file permanent & prioritaire',
     ],
     buttonText: 'S\'abonner en ligne',
     buttonVariant: 'outlined',
@@ -76,7 +76,7 @@ export default function Pricing() {
   const handleChoose = (id) => {
     let formula = { adults: 1, children: 0, safari: false };
     if (id === 'child') {
-      formula = { adults: 1, children: 1, safari: false };
+      formula = { adults: 0, children: 1, safari: false };
     } else if (id === 'adult') {
       formula = { adults: 1, children: 0, safari: false };
     } else if (id === 'family') {
@@ -115,14 +115,14 @@ export default function Pricing() {
               mb: 2 
             }}
           >
-            Nos Formules & Tarifs
+            Billetterie & Tarifs du Musée
           </Typography>
           <Typography 
             variant="h6" 
             color="text.secondary" 
             sx={{ fontWeight: 400, maxWidth: '600px', mx: 'auto' }}
           >
-            Réservez en ligne pour bénéficier du coupe-file immédiat aux guichets d'entrée du zoo.
+            Réservez en ligne pour bénéficier d'un accès coupe-file prioritaire aux galeries et expositions du musée.
           </Typography>
         </Box>
 

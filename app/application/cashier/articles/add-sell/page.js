@@ -311,7 +311,7 @@ export default function Dashboard(props) {
       <Grid container position={"fixed"}  flexDirection="row" justifyContent="flex-start" alignContent={"flex-start"}  alignItems="stretch" sx={{ width:"100%", height:"100vh", backgroundColor: grey[100]}}>
       { /** AppBar */}
       <Grid item xs={12} sm={12}>
-        <NavigationSystem indicator={"articles"} element={"Zoo Shop Boutique"}/>
+        <NavigationSystem indicator={"articles"} element={"Librairie & Boutique du Musée"}/>
       </Grid>
       {/** Category Buttons */}
       <Grid item xs={12} sm={12} sx={{paddingTop: 10}} height={"50vh"} overflow={"scroll"}>
@@ -322,7 +322,7 @@ export default function Dashboard(props) {
                 <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                   <Stack direction={"column"} spacing={0}>
                     <Typography variant="h6">
-                      Boutique Zoo Shop
+                      Librairie & Boutique du Musée
                     </Typography>
                     <Typography variant="body1">
                     {

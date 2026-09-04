@@ -136,33 +136,33 @@ export default function Section() {
                 Inscrivez-vous & Validez votre Achat
               </Typography>
               <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>
-                Créez votre compte visiteur gratuit en quelques secondes pour valider votre réservation de billets électroniques. Une fois votre compte créé, connectez-vous pour obtenir vos QR Codes d'accès direct au zoo.
+                Créez votre compte visiteur gratuit en quelques secondes pour valider votre réservation de billets électroniques. Une fois votre compte créé, connectez-vous pour obtenir vos QR Codes d'accès direct aux portiques du musée.
               </Typography>
 
               <Stack spacing={2} sx={{ mt: 1 }}>
                 <Stack direction="row" spacing={1.5} alignItems="center">
-                  <CheckCircleIcon sx={{ color: 'primary.main' }} />
+                  <CheckCircleIcon sx={{ color: 'secondary.main' }} />
                   <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.primary' }}>
-                    Accès immédiat coupe-file via codes QR mobiles.
+                    Accès immédiat coupe-file via codes QR mobiles sécurisés.
                   </Typography>
                 </Stack>
                 <Stack direction="row" spacing={1.5} alignItems="center">
-                  <CheckCircleIcon sx={{ color: 'primary.main' }} />
+                  <CheckCircleIcon sx={{ color: 'secondary.main' }} />
                   <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.primary' }}>
-                    Historique et téléchargement des factures et billets PDF.
+                    Téléchargement instantané des e-billets et factures d'achat.
                   </Typography>
                 </Stack>
                 <Stack direction="row" spacing={1.5} alignItems="center">
-                  <CheckCircleIcon sx={{ color: 'primary.main' }} />
+                  <CheckCircleIcon sx={{ color: 'secondary.main' }} />
                   <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.primary' }}>
-                    Support client prioritaire et gestion des dates de visite.
+                    Gestion simplifiée de vos réservations et pass annuels.
                   </Typography>
                 </Stack>
               </Stack>
               
               <Box sx={{ mt: 2 }}>
-                <Chip sx={{ mr: 1, mb: 1, px: 1, backgroundColor: 'primary.light', color: 'primary.dark', fontWeight: 600 }} label="Achat Sécurisé SSL" />
-                <Chip sx={{ mr: 1, mb: 1, px: 1, backgroundColor: 'secondary.light', color: 'secondary.dark', fontWeight: 600 }} label="E-Billets Immédiats" />
+                <Chip sx={{ mr: 1, mb: 1, px: 1, backgroundColor: 'rgba(15, 23, 42, 0.08)', color: 'primary.main', fontWeight: 600 }} label="Achat Sécurisé SSL" />
+                <Chip sx={{ mr: 1, mb: 1, px: 1, backgroundColor: 'rgba(217, 119, 6, 0.12)', color: 'secondary.dark', fontWeight: 600 }} label="E-Billets Immédiats" />
               </Box>
             </Stack>
           </Grid>
@@ -173,8 +173,8 @@ export default function Section() {
               {pendingBooking && (
                 <Card 
                   sx={{ 
-                    backgroundColor: 'rgba(6, 95, 70, 0.04)',
-                    borderColor: 'primary.main',
+                    backgroundColor: 'rgba(15, 23, 42, 0.03)',
+                    borderColor: 'secondary.main',
                     borderWidth: '1.5px',
                     borderStyle: 'dashed',
                     boxShadow: 'none',
@@ -183,38 +183,38 @@ export default function Section() {
                 >
                   <CardContent sx={{ p: 3 }}>
                     <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 2 }}>
-                      <Avatar sx={{ bgcolor: 'primary.main', width: 32, height: 32 }}>
+                      <Avatar sx={{ bgcolor: 'secondary.main', width: 32, height: 32 }}>
                         <LocalActivityIcon sx={{ fontSize: 16 }} />
                       </Avatar>
                       <Typography variant="subtitle1" sx={{ fontWeight: 800, color: 'primary.dark' }}>
-                        Récapitulatif de votre Sélection
+                        Récapitulatif de votre Visite
                       </Typography>
                     </Stack>
                     <Grid container spacing={2}>
                       <Grid item xs={6}>
-                        <Typography variant="caption" color="text.secondary">Date de visite</Typography>
+                        <Typography variant="caption" color="text.secondary">Date de visite au musée</Typography>
                         <Typography variant="body2" sx={{ fontWeight: 700 }}>{pendingBooking.date}</Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <Typography variant="caption" color="text.secondary">Formule choisie</Typography>
+                        <Typography variant="caption" color="text.secondary">Billets sélectionnés</Typography>
                         <Typography variant="body2" sx={{ fontWeight: 700 }}>
-                          {pendingBooking.adults} Adulte(s) {pendingBooking.children > 0 && `, ${pendingBooking.children} Enfant(s)`}
+                          {pendingBooking.adults} Plein Tarif {pendingBooking.children > 0 && `, ${pendingBooking.children} Tarif Réduit`}
                         </Typography>
                       </Grid>
                       {pendingBooking.safari && (
                         <Grid item xs={12}>
                           <Chip 
-                            label="Option Safari incluse" 
+                            label="Option Expo Temporaire & Audioguide incluse" 
                             color="secondary" 
                             size="small" 
                             sx={{ fontWeight: 600 }} 
                           />
                         </Grid>
                       )}
-                      <Grid item xs={12} sx={{ borderTop: '1px solid rgba(6, 95, 70, 0.1)', pt: 1.5, mt: 1 }}>
+                      <Grid item xs={12} sx={{ borderTop: '1px solid rgba(15, 23, 42, 0.08)', pt: 1.5, mt: 1 }}>
                         <Stack direction="row" justifyContent="space-between" alignItems="center">
-                          <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Total à payer :</Typography>
-                          <Typography variant="h5" color="primary.main" sx={{ fontWeight: 900 }}>
+                          <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>Total de la commande :</Typography>
+                          <Typography variant="h5" color="secondary.main" sx={{ fontWeight: 900 }}>
                             {pendingBooking.total} MAD
                           </Typography>
                         </Stack>

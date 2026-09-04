@@ -5,10 +5,10 @@ const font = Outfit({ subsets: ["latin"], weight: ["300", "400", "500", "600", "
 
 export async function generateMetadata({ params, searchParams }, parent) {
   return {
-    title: "Zoo de Rabat | Billetterie Officielle & E-Tickets",
-    description: "Réservez vos billets en ligne pour le Jardin Zoologique de Rabat. Évitez les files d'attente et profitez d'une aventure sauvage en famille.",
-    keywords: "zoo de rabat, billetterie zoo, achat ticket zoo, e-ticket rabat, jardin zoologique de rabat, safari rabat",
-    authors: [{name: "Zoo de Rabat & Somayar"}]
+    title: "Musée National des Arts & Civilisations | Billetterie Officielle & E-Tickets",
+    description: "Réservez vos billets en ligne pour le Musée National des Arts & Civilisations. Découvrez des siècles de patrimoine, collections antiques et chefs-d'œuvre mondiaux sans file d'attente.",
+    keywords: "musée national, musée des arts et civilisations, billetterie musée, ticket musée en ligne, exposition temporaire, visite guidée musée",
+    authors: [{name: "Musée National des Arts & Civilisations & Somayar"}]
   }
 }
 

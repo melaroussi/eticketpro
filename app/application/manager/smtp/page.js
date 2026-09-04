@@ -229,7 +229,7 @@ export default function SmtpSettings() {
                           required
                           fullWidth 
                           InputLabelProps={{ shrink: true }}
-                          placeholder="noreply@zoo-rabat.ma"
+                          placeholder="noreply@musee-civilisations.ma"
                         />
                       </Grid>
                     </Grid>

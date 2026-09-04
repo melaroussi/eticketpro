@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
-import PetsIcon from '@mui/icons-material/Pets';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import { useRouter } from 'next/navigation';
 import { Avatar } from '@mui/material';
 
@@ -31,9 +31,9 @@ export default function Section() {
       position="fixed" 
       sx={{
         backdropFilter: "blur(20px)",
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
-        borderBottom: "1px solid rgba(6, 95, 70, 0.1)",
-        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.01)",
+        backgroundColor: "rgba(255, 255, 255, 0.9)",
+        borderBottom: "1px solid rgba(15, 23, 42, 0.08)",
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.03)",
       }}
     >
       <Container maxWidth="lg" disableGutters> 
@@ -46,15 +46,15 @@ export default function Section() {
               onClick={() => scrollTo("home-section")}
               sx={{ cursor: 'pointer' }}
             >
-              <Avatar sx={{ bgcolor: 'primary.main', mr: 1.5, width: 42, height: 42 }} >
-                <PetsIcon />
+              <Avatar sx={{ bgcolor: 'secondary.main', mr: 1.5, width: 44, height: 44, boxShadow: '0 4px 12px rgba(217, 119, 6, 0.3)' }} >
+                <AccountBalanceIcon sx={{ color: '#ffffff', fontSize: 24 }} />
               </Avatar>
               <Box>
-                <Typography variant='h6' sx={{ ml: 0, fontWeight: 800, color: 'primary.main', letterSpacing: -0.5, lineHeight: 1.1 }}>
-                  Zoo de Rabat
+                <Typography variant='h6' sx={{ ml: 0, fontWeight: 800, color: 'primary.main', letterSpacing: -0.5, lineHeight: 1.1, fontSize: '1.1rem' }}>
+                  Musée des Civilisations
                 </Typography>
-                <Typography variant='caption' sx={{ ml: 0, fontWeight: 500, color: 'secondary.main', textTransform: 'uppercase', letterSpacing: 1.5 }}>
-                  E-Ticket Pro
+                <Typography variant='caption' sx={{ ml: 0, fontWeight: 700, color: 'secondary.main', textTransform: 'uppercase', letterSpacing: 1.5, fontSize: '0.65rem' }}>
+                  Arts & Histoire • E-Ticket Pro
                 </Typography>
               </Box>
             </Stack>
@@ -67,16 +67,16 @@ export default function Section() {
               Tarifs
             </Button>
             <Button onClick={()=>scrollTo("biozones-section")} sx={{ color: 'text.secondary', fontWeight: 600, textTransform: 'none', '&:hover': { color: 'primary.main' } }}>
-              Biozones
+              Galeries & Collections
             </Button>
             <Button onClick={()=>scrollTo("subscribe-section")} sx={{ color: 'text.secondary', fontWeight: 600, textTransform: 'none', '&:hover': { color: 'primary.main' } }}>
-              Réserver
+              Réservation
             </Button>
             <Button onClick={()=>scrollTo("contact-section")} sx={{ color: 'text.secondary', fontWeight: 600, textTransform: 'none', '&:hover': { color: 'primary.main' } }}>
-              Contact
+              Accès & Horaires
             </Button>
             <Button onClick={()=>scrollTo("somayar-section")} sx={{ color: 'text.secondary', fontWeight: 600, textTransform: 'none', '&:hover': { color: 'primary.main' } }}>
-              Partenaire
+              Mécénat
             </Button>
           </Box>
           <Box>

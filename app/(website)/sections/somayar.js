@@ -67,7 +67,7 @@ export default function Section() {
                   Depuis sa création en 1999, la société SOMAYAR a su s’octroyer une place de leader au Maroc dans les domaines de l’installation, de la maintenance, de la distribution, et des études techniques des systèmes de sécurité et de contrôle d’accès. 
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>
-                  En collaboration avec le Jardin Zoologique National de Rabat, SOMAYAR déploie la solution <strong>e-Ticket Pro</strong> pour garantir un système de billetterie fluide, sécurisé et performant pour tous les visiteurs.
+                  En collaboration avec le Musée National des Arts & Civilisations, SOMAYAR déploie la solution <strong>e-Ticket Pro</strong> pour garantir un système de billetterie fluide, sécurisé et performant pour tous les visiteurs et passionnés d'art.
                 </Typography>
               </Stack>
               

@@ -88,7 +88,7 @@ export default function Dashboard() {
               Rapport d'Activité
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Suivi en direct des ventes et des accès au Zoo National de Rabat.
+              Suivi en direct des ventes et des accès aux galeries du Musée National des Arts & Civilisations.
             </Typography>
           </Stack>
           <Button 

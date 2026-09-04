@@ -8,43 +8,43 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import NatureIcon from '@mui/icons-material/Nature';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 const zones = [
   {
-    title: 'Montagnes de l\'Atlas',
-    description: 'Une reconstitution fidèle des falaises et reliefs rocheux marocains, abritant les espèces originaires des montagnes.',
-    image: 'https://images.unsplash.com/photo-1627328561499-a3584d4ee4f7?w=600&auto=format',
-    animals: ['Lion de l\'Atlas', 'Singe Magot', 'Mouflon à manchettes', 'Rapaces'],
-    color: '#3b82f6',
+    title: 'Antiquités & Archéologie',
+    description: 'Une traversée des civilisations antiques méditerranéennes : mosaïques préservées, marbres impériaux, poteries néolithiques et stèles sculptées.',
+    image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&auto=format',
+    animals: ['Mosaïques Romaines', 'Statues Impériales', 'Monnaies d\'Or Antiques', 'Stèles Funéraires'],
+    color: '#b45309',
   },
   {
-    title: 'La Savane Africaine',
-    description: 'De grandes plaines herbeuses où cohabitent les herbivores spectaculaires et les prédateurs les plus rapides de la planète.',
-    image: 'https://images.unsplash.com/photo-1547721064-da6cfb341d50?w=600&auto=format',
-    animals: ['Girafes', 'Éléphants', 'Guépards', 'Lions', 'Zèbres'],
+    title: 'Arts de l\'Islam & Civilisations',
+    description: 'Une immersion dans le raffinement artistique arabo-andalou : manuscrits enluminés rares, céramiques lustrées, zelliges et astrolabes médiévaux.',
+    image: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=600&auto=format',
+    animals: ['Manuscrits Enluminés', 'Zelliges & Boiseries', 'Astrolabes Médiévaux', 'Armures d\'Apparat'],
+    color: '#0284c7',
+  },
+  {
+    title: 'Grands Maîtres & Renaissance',
+    description: 'Une collection d\'exception d\'huiles sur toile, retables magistraux et portraits historiques célébrant l\'âge d\'or de la peinture classique.',
+    image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600&auto=format',
+    animals: ['Peintures à l\'huile', 'Portraits Royaux', 'Gravures Historiques', 'Sculptures de Bronze'],
+    color: '#991b1b',
+  },
+  {
+    title: 'Art Moderne & Contemporain',
+    description: 'Un dialogue vibrant entre avant-gardes artistiques, toiles expressionnistes, photographies documentaires et sculptures contemporaines.',
+    image: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&auto=format',
+    animals: ['Toiles Abstraites', 'Installations Visuelles', 'Photographies d\'Art', 'Sculptures Épurées'],
+    color: '#6366f1',
+  },
+  {
+    title: 'Galerie des Trésors & Expositions',
+    description: 'Un espace feutré et sécurisé abritant les parures impériales, orfèvreries d\'exception et les grandes expositions temporaires internationales.',
+    image: 'https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=600&auto=format',
+    animals: ['Parures Impériales', 'Orfèvrerie Rare', 'Prêts Internationaux', 'Cabinet de Curiosités'],
     color: '#d97706',
-  },
-  {
-    title: 'Désert du Sahara',
-    description: 'Une zone aride pour observer les extraordinaires capacités d\'adaptation des animaux sahariens à la chaleur extrême.',
-    image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=600&auto=format',
-    animals: ['Addax', 'Oryx Algazelle', 'Gazelles Dorcas', 'Autruches'],
-    color: '#f59e0b',
-  },
-  {
-    title: 'Les Zones Humides',
-    description: 'Un point d\'eau dynamique imitant les marécages et deltas d\'Afrique, indispensable à de nombreuses espèces aquatiques.',
-    image: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?w=600&auto=format',
-    animals: ['Hippopotames', 'Crocodiles du Nil', 'Flamants Roses', 'Ibis'],
-    color: '#06b6d4',
-  },
-  {
-    title: 'Forêt Tropicale',
-    description: 'Un environnement chaud et humide, caractérisé par une végétation dense et le cri strident des primates et oiseaux exotiques.',
-    image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=600&auto=format',
-    animals: ['Chimpanzés', 'Mandrills', 'Oiseaux Exotiques', 'Pythons'],
-    color: '#10b981',
   },
 ];
 
@@ -57,7 +57,7 @@ export default function Biozones() {
       id="biozones-section" 
       sx={{ 
         py: 10, 
-        backgroundColor: 'rgba(6, 95, 70, 0.02)',
+        backgroundColor: 'rgba(15, 23, 42, 0.02)',
         position: 'relative' 
       }}
     >
@@ -72,14 +72,14 @@ export default function Biozones() {
               mb: 2 
             }}
           >
-            Explorez nos 5 Biozones
+            Explorez nos Galeries & Collections
           </Typography>
           <Typography 
             variant="h6" 
             color="text.secondary" 
             sx={{ fontWeight: 400, maxWidth: '700px', mx: 'auto' }}
           >
-            Le Jardin Zoologique National de Rabat reproduit fidèlement les écosystèmes d'Afrique. Cliquez sur une biozone pour en découvrir les habitants.
+            Le Musée National des Arts & Civilisations rassemble des millénaires d'art et d'histoire. Cliquez sur une galerie pour en découvrir les chefs-d'œuvre majeurs.
           </Typography>
         </Box>
 
@@ -98,18 +98,18 @@ export default function Biozones() {
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                     position: 'relative',
                     transform: isSelected ? 'scale(1.02)' : 'none',
-                    borderColor: isSelected ? 'primary.main' : 'rgba(229, 231, 235, 0.6)',
+                    borderColor: isSelected ? 'secondary.main' : 'rgba(229, 231, 235, 0.6)',
                     borderWidth: isSelected ? 2 : 1,
                     boxShadow: isSelected 
-                      ? '0 20px 25px -5px rgba(6, 95, 70, 0.1), 0 10px 10px -5px rgba(6, 95, 70, 0.04)' 
+                      ? '0 20px 25px -5px rgba(217, 119, 6, 0.15), 0 10px 10px -5px rgba(217, 119, 6, 0.04)' 
                       : '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
                     '&:hover': {
                       transform: isSelected ? 'scale(1.02)' : 'translateY(-6px)',
-                      boxShadow: '0 20px 25px -5px rgba(15, 23, 42, 0.06)'
+                      boxShadow: '0 20px 25px -5px rgba(15, 23, 42, 0.08)'
                     }
                   }}
                 >
-                  <Box sx={{ position: 'relative', overflow: 'hidden', height: 200 }}>
+                  <Box sx={{ position: 'relative', overflow: 'hidden', height: 210 }}>
                     <CardMedia
                       component="img"
                       image={zone.image}
@@ -118,7 +118,7 @@ export default function Biozones() {
                         height: '100%',
                         transition: 'transform 0.5s ease',
                         '&:hover': {
-                          transform: 'scale(1.1)'
+                          transform: 'scale(1.08)'
                         }
                       }}
                     />
@@ -127,7 +127,7 @@ export default function Biozones() {
                         position: 'absolute',
                         top: 15,
                         left: 15,
-                        backgroundColor: 'rgba(15, 23, 42, 0.75)',
+                        backgroundColor: 'rgba(15, 23, 42, 0.85)',
                         backdropFilter: 'blur(4px)',
                         color: '#ffffff',
                         px: 1.5,
@@ -135,12 +135,12 @@ export default function Biozones() {
                         borderRadius: '20px',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 0.5
+                        gap: 0.8
                       }}
                     >
-                      <NatureIcon sx={{ fontSize: 16 }} />
+                      <AccountBalanceIcon sx={{ fontSize: 16, color: 'secondary.light' }} />
                       <Typography variant="caption" sx={{ fontWeight: 700 }}>
-                        Biozone
+                        Galerie d'Art
                       </Typography>
                     </Box>
                   </Box>
@@ -152,7 +152,7 @@ export default function Biozones() {
                       sx={{ 
                         fontWeight: 800, 
                         mb: 1.5,
-                        color: isSelected ? 'primary.main' : 'text.primary'
+                        color: isSelected ? 'secondary.main' : 'text.primary'
                       }}
                     >
                       {zone.title}
@@ -163,20 +163,20 @@ export default function Biozones() {
                     
                     <Box>
                       <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1, color: 'text.primary' }}>
-                        Espèces emblématiques :
+                        Œuvres emblématiques :
                       </Typography>
                       <Stack direction="row" spacing={0.8} useFlexGap flexWrap="wrap">
-                        {zone.animals.map((animal) => (
+                        {zone.animals.map((item) => (
                           <Chip
-                            key={animal}
-                            label={animal}
+                            key={item}
+                            label={item}
                             size="small"
                             sx={{
                               fontSize: '0.75rem',
                               fontWeight: 500,
-                              backgroundColor: isSelected ? 'rgba(6, 95, 70, 0.08)' : 'rgba(15, 23, 42, 0.04)',
-                              color: isSelected ? 'primary.dark' : 'text.secondary',
-                              border: isSelected ? '1px solid rgba(6, 95, 70, 0.2)' : 'none',
+                              backgroundColor: isSelected ? 'rgba(217, 119, 6, 0.1)' : 'rgba(15, 23, 42, 0.04)',
+                              color: isSelected ? 'secondary.dark' : 'text.secondary',
+                              border: isSelected ? '1px solid rgba(217, 119, 6, 0.3)' : 'none',
                             }}
                           />
                         ))}

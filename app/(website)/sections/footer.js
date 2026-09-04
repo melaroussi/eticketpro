@@ -27,7 +27,7 @@ export default function Footer() {
       id="footer-section" 
       sx={{ 
         py: 8, 
-        backgroundColor: '#043e2e', // Deep dark green
+        backgroundColor: '#0f172a', // Midnight Navy
         color: '#ffffff',
         borderTop: '4px solid',
         borderColor: 'secondary.main',
@@ -38,30 +38,30 @@ export default function Footer() {
           <Grid item xs={12} md={4}>
             <Stack spacing={2}>
               <Typography variant="h5" sx={{ fontWeight: 800, color: 'secondary.main' }}>
-                Zoo de Rabat
+                Musée des Civilisations
               </Typography>
               <Typography variant="body2" sx={{ opacity: 0.8, lineHeight: 1.6 }}>
-                Le Jardin Zoologique National de Rabat est un espace de préservation de la faune africaine et d'apprentissage pour toute la famille. Profitez d'une journée mémorable au contact de la biodiversité sauvage.
+                Le Musée National des Arts & Civilisations préserve des millénaires d'histoire, de chefs-d'œuvre picturaux et de trésors archéologiques. Un lieu d'émerveillement et de culture ouvert à tous les publics.
               </Typography>
             </Stack>
           </Grid>
           
           <Grid item xs={6} md={3}>
             <Typography variant="h6" sx={{ fontWeight: 700, mb: 2, color: 'secondary.light' }}>
-              Plan du Site
+              Plan du Musée
             </Typography>
             <Stack spacing={1}>
               <Link onClick={() => scrollTo("home-section")} sx={{ color: '#ffffff', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1, color: 'secondary.light' } }}>
                 Accueil
               </Link>
               <Link onClick={() => scrollTo("pricing-section")} sx={{ color: '#ffffff', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1, color: 'secondary.light' } }}>
-                Tarifs & Formules
+                Tarifs & Billetterie
               </Link>
               <Link onClick={() => scrollTo("biozones-section")} sx={{ color: '#ffffff', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1, color: 'secondary.light' } }}>
-                Les Biozones
+                Galeries & Collections
               </Link>
               <Link onClick={() => scrollTo("subscribe-section")} sx={{ color: '#ffffff', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1, color: 'secondary.light' } }}>
-                Réserver en Ligne
+                Réservation E-Ticket
               </Link>
             </Stack>
           </Grid>

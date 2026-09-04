@@ -81,7 +81,7 @@ export default function HelpPage() {
                         Manuel d'Utilisation eTicket Pro
                       </Typography>
                       <Typography variant="subtitle1" sx={{ color: '#94a3b8', fontWeight: 500 }}>
-                        Guide complet de la Solution de Gestion des Ventes et de Contrôle d'Accès du Jardin Zoologique National de Rabat (JZN)
+                        Guide complet de la Solution de Gestion des Ventes et de Contrôle d'Accès du Musée National des Arts & Civilisations
                       </Typography>
                     </Stack>
                   </Stack>
@@ -89,7 +89,7 @@ export default function HelpPage() {
                 <CardContent sx={{ p: 4 }}>
                   <Alert severity="info" sx={{ borderRadius: 2, mb: 4 }}>
                     <AlertTitle sx={{ fontWeight: 700 }}>Note d'utilisation</AlertTitle>
-                    Ce manuel décrit le fonctionnement de l'application <strong>eTicket Pro</strong>, développée conformément au <strong>Cahier des Prescriptions Spéciales (C.P.S.)</strong> pour la modernisation de la billetterie, des abonnements, et des accès du Jardin Zoologique National de Rabat.
+                    Ce manuel décrit le fonctionnement de l'application <strong>eTicket Pro</strong>, développée pour la modernisation de la billetterie, des abonnements, et des accès du Musée National des Arts & Civilisations.
                   </Alert>
 
                   <Typography variant="h5" sx={{ fontWeight: 700, mb: 3, color: '#0f172a', fontFamily: '"Outfit", sans-serif' }}>
@@ -258,7 +258,7 @@ export default function HelpPage() {
                         Module de caisse complet avec scan de codes-barres des articles, gestion des modes de paiement, impression du ticket de vente boutique et réduction automatique des stocks.
                       </Typography>
 
-                      <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#0f172a', mb: 1 }}>Parking du Zoo</Typography>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#0f172a', mb: 1 }}>Parking du Musée</Typography>
                       <Typography variant="body2" sx={{ color: '#475569', mb: 2, lineHeight: 1.6 }}>
                         Distribution de tickets à l'entrée par barrière automatique. Encaissement du ticket à la sortie et déverrouillage de la barrière de sortie du parking.
                       </Typography>

@@ -72,7 +72,7 @@ export default function Dashboard(props) {
                   Bienvenue sur eTicket Pro v1.0
                 </Typography>
                 <Typography variant="body1" align="center">
-                  Bienvenue dans l'espace Caissier de la billetterie du Zoo de Rabat ! Ensemble, rendons chaque visite exceptionnelle. L'équipe du Zoo de Rabat
+                  Bienvenue dans l'espace Caissier de la billetterie du Musée National des Arts & Civilisations ! Ensemble, offrons à chaque visiteur une expérience culturelle mémorable. L'équipe du Musée
                 </Typography>
               </Stack>
             </Container>
