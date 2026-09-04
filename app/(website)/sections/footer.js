@@ -117,7 +117,7 @@ export default function Footer() {
             eTicket Pro v1.0 by SOMAYAR. Tous droits réservés &copy; {new Date().getFullYear()}.
           </Typography>
           <Typography variant="caption" sx={{ opacity: 0.4, display: 'block', mt: 1 }}>
-            Jardin Zoologique National de Rabat - Partenariat Technologique SOMAYAR
+            Musée National des Arts & Civilisations - Partenariat Technologique SOMAYAR
           </Typography>
         </Box>
       </Container>

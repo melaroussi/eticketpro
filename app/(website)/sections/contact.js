@@ -99,7 +99,7 @@ export default function Contact() {
                   </Avatar>
                   <Box>
                     <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>Email</Typography>
-                    <Typography variant="body2" color="text.secondary">contact@rabatzoo.ma</Typography>
+                    <Typography variant="body2" color="text.secondary">contact@musee-civilisations.ma</Typography>
                   </Box>
                 </Stack>
               </Stack>
