@@ -408,7 +408,7 @@ export default function KioskPage() {
         )}
         {step === 2 && (
           <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.4)' }}>
-            ZJN Rabat Terminal #01
+            Terminal Borne Musée #01
           </Typography>
         )}
       </Box>
